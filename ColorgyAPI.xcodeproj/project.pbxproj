@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D99C0FE3EFDDE456A3F2537 /* Pods_ColorgyAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A793ED9D1F2E8CB1DC8B3BA /* Pods_ColorgyAPI.framework */; };
 		63CEE3671CA24C1400EAD560 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CEE3661CA24C1400EAD560 /* AppDelegate.swift */; };
 		63CEE3691CA24C1400EAD560 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CEE3681CA24C1400EAD560 /* ViewController.swift */; };
 		63CEE36C1CA24C1400EAD560 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63CEE36A1CA24C1400EAD560 /* Main.storyboard */; };
@@ -34,6 +35,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		00AB6B5F4BE8828424D85AD3 /* Pods-ColorgyAPI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColorgyAPI.release.xcconfig"; path = "Pods/Target Support Files/Pods-ColorgyAPI/Pods-ColorgyAPI.release.xcconfig"; sourceTree = "<group>"; };
+		3E8375D19B47FD5FCA3FF983 /* Pods-ColorgyAPI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColorgyAPI.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ColorgyAPI/Pods-ColorgyAPI.debug.xcconfig"; sourceTree = "<group>"; };
+		5A793ED9D1F2E8CB1DC8B3BA /* Pods_ColorgyAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ColorgyAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		63CEE3631CA24C1400EAD560 /* ColorgyAPI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColorgyAPI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63CEE3661CA24C1400EAD560 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		63CEE3681CA24C1400EAD560 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -47,6 +51,7 @@
 		63CEE3821CA24C1400EAD560 /* ColorgyAPIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ColorgyAPIUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		63CEE3861CA24C1400EAD560 /* ColorgyAPIUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorgyAPIUITests.swift; sourceTree = "<group>"; };
 		63CEE3881CA24C1400EAD560 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		63CEE3941CA24D1B00EAD560 /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D99C0FE3EFDDE456A3F2537 /* Pods_ColorgyAPI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,10 +83,13 @@
 		63CEE35A1CA24C1400EAD560 = {
 			isa = PBXGroup;
 			children = (
+				63CEE3941CA24D1B00EAD560 /* Header.h */,
 				63CEE3651CA24C1400EAD560 /* ColorgyAPI */,
 				63CEE37A1CA24C1400EAD560 /* ColorgyAPITests */,
 				63CEE3851CA24C1400EAD560 /* ColorgyAPIUITests */,
 				63CEE3641CA24C1400EAD560 /* Products */,
+				7F82570936DD88F120E074EC /* Pods */,
+				D28AD584950D9F0BC887A7E9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -125,6 +134,23 @@
 			path = ColorgyAPIUITests;
 			sourceTree = "<group>";
 		};
+		7F82570936DD88F120E074EC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3E8375D19B47FD5FCA3FF983 /* Pods-ColorgyAPI.debug.xcconfig */,
+				00AB6B5F4BE8828424D85AD3 /* Pods-ColorgyAPI.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		D28AD584950D9F0BC887A7E9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5A793ED9D1F2E8CB1DC8B3BA /* Pods_ColorgyAPI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -132,9 +158,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 63CEE38B1CA24C1400EAD560 /* Build configuration list for PBXNativeTarget "ColorgyAPI" */;
 			buildPhases = (
+				9BF62386B9D513AA68FA9063 /* Check Pods Manifest.lock */,
 				63CEE35F1CA24C1400EAD560 /* Sources */,
 				63CEE3601CA24C1400EAD560 /* Frameworks */,
 				63CEE3611CA24C1400EAD560 /* Resources */,
+				278353EEB8629CA7987215D2 /* Embed Pods Frameworks */,
+				AC54878E266D122E168949B0 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -250,6 +279,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		278353EEB8629CA7987215D2 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ColorgyAPI/Pods-ColorgyAPI-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9BF62386B9D513AA68FA9063 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		AC54878E266D122E168949B0 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ColorgyAPI/Pods-ColorgyAPI-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		63CEE35F1CA24C1400EAD560 /* Sources */ = {
@@ -397,23 +474,29 @@
 		};
 		63CEE38C1CA24C1400EAD560 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3E8375D19B47FD5FCA3FF983 /* Pods-ColorgyAPI.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = ColorgyAPI/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = misk.ColorgyAPI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = ./Header.h;
 			};
 			name = Debug;
 		};
 		63CEE38D1CA24C1400EAD560 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 00AB6B5F4BE8828424D85AD3 /* Pods-ColorgyAPI.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = ColorgyAPI/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = misk.ColorgyAPI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = ./Header.h;
 			};
 			name = Release;
 		};
@@ -484,6 +567,7 @@
 				63CEE38D1CA24C1400EAD560 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		63CEE38E1CA24C1400EAD560 /* Build configuration list for PBXNativeTarget "ColorgyAPITests" */ = {
 			isa = XCConfigurationList;
@@ -492,6 +576,7 @@
 				63CEE3901CA24C1400EAD560 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		63CEE3911CA24C1400EAD560 /* Build configuration list for PBXNativeTarget "ColorgyAPIUITests" */ = {
 			isa = XCConfigurationList;
@@ -500,6 +585,7 @@
 				63CEE3931CA24C1400EAD560 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
