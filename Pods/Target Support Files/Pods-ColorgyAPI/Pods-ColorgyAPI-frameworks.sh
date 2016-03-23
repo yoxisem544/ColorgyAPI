@@ -85,9 +85,15 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-ColorgyAPI/AFNetworking.framework"
+  install_framework "Pods-ColorgyAPI/Bolts.framework"
+  install_framework "Pods-ColorgyAPI/FBSDKCoreKit.framework"
+  install_framework "Pods-ColorgyAPI/FBSDKLoginKit.framework"
   install_framework "Pods-ColorgyAPI/SwiftyJSON.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-ColorgyAPI/AFNetworking.framework"
+  install_framework "Pods-ColorgyAPI/Bolts.framework"
+  install_framework "Pods-ColorgyAPI/FBSDKCoreKit.framework"
+  install_framework "Pods-ColorgyAPI/FBSDKLoginKit.framework"
   install_framework "Pods-ColorgyAPI/SwiftyJSON.framework"
 fi

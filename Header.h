@@ -11,4 +11,6 @@
 
 #import <AFNetworking/AFNetworking.h>
 
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+
 #endif /* Header_h */
