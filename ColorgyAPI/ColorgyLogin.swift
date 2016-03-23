@@ -45,7 +45,7 @@ class ColorgyLogin {
 		}
 	}
 	
-	class func loginToColorgyWithFacebookToken(token: String, success: (result: ColorgyLoginResult) -> Void, failure: (error: ColorgyLoginError) -> Void) {
+	class func loginToColorgyWithFacebookToken(token: String, success: ((result: ColorgyLoginResult) -> Void)?, failure: ((error: ColorgyLoginError, AFError: AFError?) -> Void)?) {
 		
 		let manager = AFHTTPSessionManager(baseURL: nil)
 		manager.requestSerializer = AFJSONRequestSerializer()
@@ -64,18 +64,19 @@ class ColorgyLogin {
 		
 		manager.POST("https://colorgy.io/oauth/token", parameters: parameters, progress: nil, success: { (task: NSURLSessionDataTask, response: AnyObject?) -> Void in
 			guard let response = response else {
-				failure(error: ColorgyLoginError.FailToParseResult)
+				failure?(error: ColorgyLoginError.FailToParseResult, AFError: nil)
 				return
 			}
 			let json = JSON(response)
 			guard let result = ColorgyLoginResult(json: json) else {
-				failure(error: ColorgyLoginError.FailToParseResult)
+				failure?(error: ColorgyLoginError.FailToParseResult, AFError: nil)
 				return
 			}
 			// success
-			success(result: result)
+			success?(result: result)
 			}, failure: { (operation: NSURLSessionDataTask?, error: NSError) -> Void in
-				failure(error: ColorgyLoginError.NetworkError)
+				let aferror = AFError(operation: operation, error: error)
+				failure?(error: ColorgyLoginError.NetworkError, AFError: aferror)
 		})
 	}
 }

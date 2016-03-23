@@ -10,6 +10,8 @@
 		4D99C0FE3EFDDE456A3F2537 /* Pods_ColorgyAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A793ED9D1F2E8CB1DC8B3BA /* Pods_ColorgyAPI.framework */; };
 		63B619121CA2C98E000CCB8D /* ColorgyLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B619111CA2C98E000CCB8D /* ColorgyLogin.swift */; };
 		63B619141CA2D4D5000CCB8D /* ColorgyLoginResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B619131CA2D4D5000CCB8D /* ColorgyLoginResult.swift */; };
+		63B619161CA2DBC2000CCB8D /* AFNetworkingErrorParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B619151CA2DBC2000CCB8D /* AFNetworkingErrorParser.swift */; };
+		63B619181CA2DEB2000CCB8D /* AFError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B619171CA2DEB2000CCB8D /* AFError.swift */; };
 		63CEE3671CA24C1400EAD560 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CEE3661CA24C1400EAD560 /* AppDelegate.swift */; };
 		63CEE3691CA24C1400EAD560 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CEE3681CA24C1400EAD560 /* ViewController.swift */; };
 		63CEE36C1CA24C1400EAD560 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63CEE36A1CA24C1400EAD560 /* Main.storyboard */; };
@@ -43,6 +45,8 @@
 		5A793ED9D1F2E8CB1DC8B3BA /* Pods_ColorgyAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ColorgyAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		63B619111CA2C98E000CCB8D /* ColorgyLogin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorgyLogin.swift; sourceTree = "<group>"; };
 		63B619131CA2D4D5000CCB8D /* ColorgyLoginResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorgyLoginResult.swift; sourceTree = "<group>"; };
+		63B619151CA2DBC2000CCB8D /* AFNetworkingErrorParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AFNetworkingErrorParser.swift; sourceTree = "<group>"; };
+		63B619171CA2DEB2000CCB8D /* AFError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AFError.swift; sourceTree = "<group>"; };
 		63CEE3631CA24C1400EAD560 /* ColorgyAPI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColorgyAPI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63CEE3661CA24C1400EAD560 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		63CEE3681CA24C1400EAD560 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -114,11 +118,13 @@
 			children = (
 				63CEE3661CA24C1400EAD560 /* AppDelegate.swift */,
 				63CEE3681CA24C1400EAD560 /* ViewController.swift */,
+				63B619151CA2DBC2000CCB8D /* AFNetworkingErrorParser.swift */,
 				63CEE36A1CA24C1400EAD560 /* Main.storyboard */,
 				63CEE36D1CA24C1400EAD560 /* Assets.xcassets */,
 				63CEE36F1CA24C1400EAD560 /* LaunchScreen.storyboard */,
 				63CEE3951CA24DB800EAD560 /* ColorgyAPI.swift */,
 				63B619111CA2C98E000CCB8D /* ColorgyLogin.swift */,
+				63B619171CA2DEB2000CCB8D /* AFError.swift */,
 				63B619131CA2D4D5000CCB8D /* ColorgyLoginResult.swift */,
 				63CEE3721CA24C1400EAD560 /* Info.plist */,
 			);
@@ -342,10 +348,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63B619181CA2DEB2000CCB8D /* AFError.swift in Sources */,
 				63CEE3691CA24C1400EAD560 /* ViewController.swift in Sources */,
 				63B619121CA2C98E000CCB8D /* ColorgyLogin.swift in Sources */,
 				63CEE3961CA24DB800EAD560 /* ColorgyAPI.swift in Sources */,
 				63B619141CA2D4D5000CCB8D /* ColorgyLoginResult.swift in Sources */,
+				63B619161CA2DBC2000CCB8D /* AFNetworkingErrorParser.swift in Sources */,
 				63CEE3671CA24C1400EAD560 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
