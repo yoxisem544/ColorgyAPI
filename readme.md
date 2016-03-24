@@ -9,6 +9,7 @@
 5. API Center
 6. 要可以知道是哪一種錯誤，還有錯誤的BODY
 7. status code 要列舉一下
+8. API要某種程度上相依refresh center
 
 ## 規則
 success 一定會回傳值

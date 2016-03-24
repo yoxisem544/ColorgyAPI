@@ -61,7 +61,6 @@ class ColorgyAPI : NSObject {
 			success?(result: result)
 			}, failure: { (operation: NSURLSessionDataTask?, error: NSError) -> Void in
 				// then handle response
-				print("fail to get me API")
 				let aferror = AFError(operation: operation, error: error)
 				failure?(error: APIMeError.NoAccessToken, AFError: aferror)
 		})
