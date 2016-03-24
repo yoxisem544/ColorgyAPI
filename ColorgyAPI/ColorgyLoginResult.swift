@@ -52,7 +52,7 @@ class ColorgyLoginResult : NSObject {
 		self.init(created_at: _created_at, scope: _scope, token_type: _token_type, access_token: _access_token, refresh_token: _refresh_token, expires_in: _expires_in)
 	}
 	
-	init?(created_at: Int?, scope: String?, token_type: String?, access_token: String?, refresh_token: String?, expires_in: Int?) {
+	 private init?(created_at: Int?, scope: String?, token_type: String?, access_token: String?, refresh_token: String?, expires_in: Int?) {
 		self.created_at = Int()
 		self.scope = String()
 		self.token_type = String()

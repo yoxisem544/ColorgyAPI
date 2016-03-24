@@ -28,7 +28,7 @@ class ColorgyUserInformation {
 		return Static.instance
 	}
 	
-	func saveLoginResult(result: ColorgyLoginResult) {
+	class func saveLoginResult(result: ColorgyLoginResult) {
 		let ud = NSUserDefaults.standardUserDefaults()
 		ud.setObject(result.created_at, forKey: LoginResultKeys.created_at)
 		ud.setObject(result.scope, forKey: LoginResultKeys.scope)
@@ -39,5 +39,24 @@ class ColorgyUserInformation {
 		ud.synchronize()
 	}
 	
+	class func deleteLoginResult() {
+		let ud = NSUserDefaults.standardUserDefaults()
+		ud.removeObjectForKey(LoginResultKeys.created_at)
+		ud.removeObjectForKey(LoginResultKeys.scope)
+		ud.removeObjectForKey(LoginResultKeys.token_type)
+		ud.removeObjectForKey(LoginResultKeys.access_token)
+		ud.removeObjectForKey(LoginResultKeys.expires_in)
+		ud.removeObjectForKey(LoginResultKeys.refresh_token)
+		ud.synchronize()
+	}
 	
+	var userAccessToken: String? {
+		let ud = NSUserDefaults.standardUserDefaults()
+		return ud.objectForKey(LoginResultKeys.access_token) as? String
+	}
+	
+	var userRefreshToken: String? {
+		let ud = NSUserDefaults.standardUserDefaults()
+		return ud.objectForKey(LoginResultKeys.refresh_token) as? String
+	}
 }

@@ -25,12 +25,17 @@ class ViewController: UIViewController {
 		button.backgroundColor = UIColor.greenColor()
 		view.addSubview(button)
 		button.addTarget(self, action: "yo", forControlEvents: UIControlEvents.TouchUpInside)
+		
+		print(ColorgyRefreshCenter.sharedInstance().refreshToken)
 	}
 	
 	func yo() {
 		ColorgyLogin.FacebookLogin({ (token) -> Void in
 			ColorgyLogin.loginToColorgyWithFacebookToken(token, success: { (result) -> Void in
-				print(result)
+				print(ColorgyRefreshCenter.sharedInstance().refreshToken)
+				ColorgyRefreshCenter.refreshAccessToken({ () -> Void in
+					print(ColorgyRefreshCenter.sharedInstance().refreshToken)
+					}, failure: nil)
 				}, failure: nil)
 			}) { (error) -> Void in
 				

@@ -31,3 +31,14 @@ failure 一定會回傳
 - ColorgyLoginError : 登入colorgy會出現的錯誤enum
 - ColorgyFacebookLoginError : 登入到FB時會發生的錯誤enum
 
+### User Informatoin
+- 拿來存 跟user有關的東西
+- 任何東西丟給他存就對了
+
+### Refresh Center
+- 不跟API有關係
+- 但是可以LOCK API的工作
+
+
+
+

@@ -72,6 +72,8 @@ class ColorgyLogin {
 				failure?(error: ColorgyLoginError.FailToParseResult, AFError: nil)
 				return
 			}
+			// store
+			ColorgyUserInformation.saveLoginResult(result)
 			// success
 			success?(result: result)
 			}, failure: { (operation: NSURLSessionDataTask?, error: NSError) -> Void in

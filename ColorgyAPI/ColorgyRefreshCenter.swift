@@ -32,23 +32,19 @@ class ColorgyRefreshCenter {
 		return Static.instance
 	}
 	
-	var refreshToken: String?
-	var accessToken: String?
+	var refreshToken: String? {
+		return ColorgyUserInformation.sharedInstance().userRefreshToken
+	}
+	var accessToken: String? {
+		return ColorgyUserInformation.sharedInstance().userAccessToken
+	}
 	private var refreshState: RefreshTokenState
 	
-	struct StorageKeys {
-		static let accessToken = "This is key for access token"
-		static let refreshToken = "This is key for refresh token"
-	}
-	
 	init() {
-		let ud = NSUserDefaults.standardUserDefaults()
-		self.accessToken = ud.objectForKey(StorageKeys.accessToken) as? String
-		self.refreshToken = ud.objectForKey(StorageKeys.refreshToken) as? String
 		self.refreshState = RefreshTokenState.NotRefreshing
 	}
 	
-	class func refreshAccessToken(failure: ((error: RefreshTokenError, AFError: AFError?) -> Void)?) {
+	class func refreshAccessToken(success: (() -> Void)?, failure: ((error: RefreshTokenError, AFError: AFError?) -> Void)?) {
 		
 		let manager = AFHTTPSessionManager(baseURL: nil)
 		manager.requestSerializer = AFJSONRequestSerializer()
@@ -66,7 +62,7 @@ class ColorgyRefreshCenter {
 			"client_secret": "d9de77450d6365ca8bd6717bbf8502dfb4a088e50962258d5d94e7f7211596a3",
 			"refresh_token": refreshToken
 		]
-		
+
 		// lock
 		ColorgyRefreshCenter.sharedInstance().lockWhenRefreshingToken()
 		
@@ -78,11 +74,16 @@ class ColorgyRefreshCenter {
 			}
 			// TODO: Success
 			let json = JSON(response)
-			print(json)
+			guard let result = ColorgyLoginResult(json: json) else {
+				failure?(error: RefreshTokenError.FailToParseResponse, AFError: nil)
+				return
+			}
+			ColorgyUserInformation.saveLoginResult(result)
 			ColorgyRefreshCenter.sharedInstance().unlockWhenFinishRefreshingToken()
+			success?()
 			}, failure: { (operation: NSURLSessionDataTask?, error: NSError) -> Void in
 				let aferror = AFError(operation: operation, error: error)
-				failure?(error: RefreshTokenError.FailToParseResponse, AFError: aferror)
+				failure?(error: RefreshTokenError.NetworkError, AFError: aferror)
 				ColorgyRefreshCenter.sharedInstance().unlockWhenFinishRefreshingToken()
 		})
 	}
@@ -94,4 +95,6 @@ class ColorgyRefreshCenter {
 	private func unlockWhenFinishRefreshingToken() {
 		self.refreshState = .NotRefreshing
 	}
+	
+	
 }
