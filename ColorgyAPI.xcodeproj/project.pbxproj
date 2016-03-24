@@ -13,6 +13,7 @@
 		63B619161CA2DBC2000CCB8D /* AFNetworkingErrorParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B619151CA2DBC2000CCB8D /* AFNetworkingErrorParser.swift */; };
 		63B619181CA2DEB2000CCB8D /* AFError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B619171CA2DEB2000CCB8D /* AFError.swift */; };
 		63B6191A1CA380F8000CCB8D /* ColorgyRefreshCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B619191CA380F8000CCB8D /* ColorgyRefreshCenter.swift */; };
+		63B6191C1CA38EC5000CCB8D /* ColorgyUserInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B6191B1CA38EC5000CCB8D /* ColorgyUserInformation.swift */; };
 		63CEE3671CA24C1400EAD560 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CEE3661CA24C1400EAD560 /* AppDelegate.swift */; };
 		63CEE3691CA24C1400EAD560 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CEE3681CA24C1400EAD560 /* ViewController.swift */; };
 		63CEE36C1CA24C1400EAD560 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63CEE36A1CA24C1400EAD560 /* Main.storyboard */; };
@@ -49,6 +50,7 @@
 		63B619151CA2DBC2000CCB8D /* AFNetworkingErrorParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AFNetworkingErrorParser.swift; sourceTree = "<group>"; };
 		63B619171CA2DEB2000CCB8D /* AFError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AFError.swift; sourceTree = "<group>"; };
 		63B619191CA380F8000CCB8D /* ColorgyRefreshCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorgyRefreshCenter.swift; sourceTree = "<group>"; };
+		63B6191B1CA38EC5000CCB8D /* ColorgyUserInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorgyUserInformation.swift; sourceTree = "<group>"; };
 		63CEE3631CA24C1400EAD560 /* ColorgyAPI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColorgyAPI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63CEE3661CA24C1400EAD560 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		63CEE3681CA24C1400EAD560 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 		63CEE35A1CA24C1400EAD560 = {
 			isa = PBXGroup;
 			children = (
+				63B6191B1CA38EC5000CCB8D /* ColorgyUserInformation.swift */,
 				63CEE3941CA24D1B00EAD560 /* Header.h */,
 				63CEE3651CA24C1400EAD560 /* ColorgyAPI */,
 				63CEE37A1CA24C1400EAD560 /* ColorgyAPITests */,
@@ -356,6 +359,7 @@
 				63B619121CA2C98E000CCB8D /* ColorgyLogin.swift in Sources */,
 				63CEE3961CA24DB800EAD560 /* ColorgyAPI.swift in Sources */,
 				63B6191A1CA380F8000CCB8D /* ColorgyRefreshCenter.swift in Sources */,
+				63B6191C1CA38EC5000CCB8D /* ColorgyUserInformation.swift in Sources */,
 				63B619141CA2D4D5000CCB8D /* ColorgyLoginResult.swift in Sources */,
 				63B619161CA2DBC2000CCB8D /* AFNetworkingErrorParser.swift in Sources */,
 				63CEE3671CA24C1400EAD560 /* AppDelegate.swift in Sources */,
