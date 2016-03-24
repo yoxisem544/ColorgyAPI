@@ -11,5 +11,8 @@ import AFNetworking
 import SwiftyJSON
 
 class ColorgyAPI : NSObject {
-    
+	
+	class func me() {
+
+	}
 }

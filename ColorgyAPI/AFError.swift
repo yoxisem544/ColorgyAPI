@@ -13,6 +13,8 @@ class AFError: NSObject {
 	var statusCode: Int?
 	var responseBody: String?
 	
+	override var description: String { return "AFError:{\n\tstatusCode: \(statusCode)\n\tresponseBody: \(responseBody)\n" }
+	
 	init(operation: NSURLSessionDataTask?, error: NSError) {
 		self.statusCode = AFNetworkingErrorParser.statusCode(operation)
 		self.responseBody = AFNetworkingErrorParser.responseBody(error)

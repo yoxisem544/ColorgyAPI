@@ -28,15 +28,22 @@ class ViewController: UIViewController {
 	}
 	
 	func yo() {
-		ColorgyLogin.FacebookLogin({ (token) -> Void in
-			ColorgyLogin.loginToColorgyWithFacebookToken(token, success: { (result) -> Void in
-				print(result)
-				}, failure: { (error) -> Void in
-					print(error)
-			})
-			}, failure: { (error) -> Void in
-				print(error)
-		})
+//		ColorgyLogin.FacebookLogin({ (token) -> Void in
+//			ColorgyLogin.loginToColorgyWithFacebookToken(token, success: { (result) -> Void in
+//				print(result)
+//				}, failure: { (error) -> Void in
+//					print(error)
+//			})
+//			}, failure: { (error) -> Void in
+//				print(error)
+//		})
+		
+		ColorgyLogin.loginToColorgyWithFacebookToken("ww", success: nil) { (error, AFError) -> Void in
+			print(error)
+			print(AFError)
+		}
+		
+		ColorgyAPI.me()
 	}
 
 	override func didReceiveMemoryWarning() {
