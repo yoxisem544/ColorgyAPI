@@ -25,7 +25,7 @@ class ColorgyAPI : NSObject {
 	///
 	/// :returns: result: ColorgyAPIMeResult?, you can store it.
 	/// :returns: error: An error if you got one, then handle it.
-	class func me(completionHandler: (result: ColorgyAPIMeResult) -> Void, failure: ((error: APIMeError, AFError: AFError?) -> Void)?) {
+	class func me(success: ((result: ColorgyAPIMeResult) -> Void)?, failure: ((error: APIMeError, AFError: AFError?) -> Void)?) {
 		
 		let manager = AFHTTPSessionManager(baseURL: nil)
 		manager.requestSerializer = AFJSONRequestSerializer()
@@ -45,35 +45,20 @@ class ColorgyAPI : NSObject {
 		
 		// then start job
 		manager.GET(url, parameters: nil, progress: nil,success: { (task: NSURLSessionDataTask, response: AnyObject?) -> Void in
-			// into background
-			//                        let qos = Int(QOS_CLASS_USER_INTERACTIVE.value)
-			let qos = Int(QOS_CLASS_USER_INITIATED.rawValue)
-			dispatch_async(dispatch_get_global_queue(qos, 0), { () -> Void in
-				// then handle response
-				print("me API successfully get")
-				// will pass in a json, then generate a result
-				guard let response = response else {
-					failure?(error: APIMeError.FailToParseResult, AFError: nil)
-					return
-				}
-				let json = JSON(response)
-				print("ME get!")
-				if let result = ColorgyAPIMeResult(json: json) {
-					print(result)
-					// store
-					UserSetting.storeAPIMeResult(result: result)
-					// return to main queue
-					dispatch_async(dispatch_get_main_queue(), { () -> Void in
-						completionHandler(result: result)
-					})
-				} else {
-					// return to main queue
-					dispatch_async(dispatch_get_main_queue(), { () -> Void in
-						failure()
-					})
-				}
-
-			})
+			// will pass in a json, then generate a result
+			guard let response = response else {
+				failure?(error: APIMeError.FailToParseResult, AFError: nil)
+				return
+			}
+			let json = JSON(response)
+			guard let result = ColorgyAPIMeResult(json: json) else {
+				failure?(error: APIMeError.FailToParseResult, AFError: nil)
+				return
+			}
+			// store
+			ColorgyUserInformation.saveAPIMeResult(result)
+			// success
+			success?(result: result)
 			}, failure: { (operation: NSURLSessionDataTask?, error: NSError) -> Void in
 				// then handle response
 				print("fail to get me API")
