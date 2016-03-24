@@ -14,33 +14,14 @@ enum RefreshTokenState {
 }
 
 class ColorgyRefreshCenter {
-	
-//	class var sharedInstance: ColorgyRefreshCenter {
-//		
-//		struct Static {
-//			static var onceToken: dispatch_once_t = 0
-//			static var instance: ColorgyRefreshCenter? = nil
-//		}
-//		
-//		dispatch_once(&Static.onceToken) { () -> Void in
-//			Static.instance = ColorgyRefreshCenter()
-//		}
-//		
-//		return Static.instance!
-//	}
-//	
+
 	class func sharedInstance() -> ColorgyRefreshCenter {
 		
 		struct Static {
-			static var onceToken: dispatch_once_t = 0
-			static var instance: ColorgyRefreshCenter? = nil
+			static let instance: ColorgyRefreshCenter = ColorgyRefreshCenter()
 		}
-		
-		dispatch_once(&Static.onceToken) { () -> Void in
-			Static.instance = ColorgyRefreshCenter()
-		}
-		
-		return Static.instance!
+
+		return Static.instance
 	}
 	
 	var refreshToken: String?
@@ -59,5 +40,7 @@ class ColorgyRefreshCenter {
 		self.refreshState = RefreshTokenState.NotRefreshing
 	}
 	
-	
+	class func refreshAccessToken() {
+		
+	}
 }
