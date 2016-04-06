@@ -10,6 +10,8 @@
 6. 要可以知道是哪一種錯誤，還有錯誤的BODY
 7. status code 要列舉一下
 8. API要某種程度上相依refresh center
+9. 需要API時一定要建立一個manager，manager可以做所有的API呼叫，同時也可以在VIEW消失時cancel所有的task。（管理記憶體）
+
 
 ## 規則
 success 一定會回傳值
