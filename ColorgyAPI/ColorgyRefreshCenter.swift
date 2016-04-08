@@ -15,24 +15,20 @@ public enum RefreshTokenState {
 	case NotRefreshing
 }
 
-public enum RefreshTokenError: ErrorType {
+public enum RefreshingError: ErrorType {
 	case NoRefreshToken
 	case FailToParseResponse
 	case NetworkError
 }
 
-public enum NetworkError: ErrorType {
-	case NoNetwork
-}
-
 final public class ColorgyRefreshCenter {
-
+	
 	class func sharedInstance() -> ColorgyRefreshCenter {
 		
 		struct Static {
 			static let instance: ColorgyRefreshCenter = ColorgyRefreshCenter()
 		}
-
+		
 		return Static.instance
 	}
 	
@@ -55,38 +51,31 @@ final public class ColorgyRefreshCenter {
 		self.refreshState = RefreshTokenState.NotRefreshing
 	}
 	
-	/// *Initialization*
+	/// **Initialization**
 	/// Call this during app setup
 	public class func initialization() {
 		// start monitoring
 		AFNetworkReachabilityManager.sharedManager().startMonitoring()
 	}
 	
-	// 必需要有回覆機制，refresh前要先看網路存不存在
-	public class func refreshAccessToken(success: (() -> Void)?, failure: ((error: NetworkError) -> Void)?) {
-		let manager = AFNetworkReachabilityManager.sharedManager()
+	public class func refreshAccessToken(success: (() -> Void)?, failure: ((error: RefreshingError, AFError: AFError?) -> Void)?) {
 		
-		switch manager.networkReachabilityStatus {
-		case .Unknown:
-			// wait and retry
-		case .NotReachable:
-			
-		case .ReachableViaWiFi:
-			
-		case .ReachableViaWWAN:
-			
+		// check network first
+		let reachabilityManager = AFNetworkReachabilityManager.sharedManager()
+		let networkStatus =
+			(reachabilityManager.networkReachabilityStatus != .NotReachable
+				|| reachabilityManager.networkReachabilityStatus != .Unknown)
+		guard networkStatus else {
+			failure?(error: RefreshingError.NetworkError, AFError: nil)
+			return
 		}
-		
-	}
-	
-	public class func refreshAccessToken(success: (() -> Void)?, failure: ((error: RefreshTokenError, AFError: AFError?) -> Void)?) {
 		
 		let manager = AFHTTPSessionManager(baseURL: nil)
 		manager.requestSerializer = AFJSONRequestSerializer()
 		manager.responseSerializer = AFJSONResponseSerializer()
 		
 		guard let refreshToken = ColorgyRefreshCenter.sharedInstance().refreshToken else {
-			failure?(error: RefreshTokenError.NoRefreshToken, AFError: nil)
+			failure?(error: RefreshingError.NoRefreshToken, AFError: nil)
 			return
 		}
 		
@@ -97,20 +86,20 @@ final public class ColorgyRefreshCenter {
 			"client_secret": "d9de77450d6365ca8bd6717bbf8502dfb4a088e50962258d5d94e7f7211596a3",
 			"refresh_token": refreshToken
 		]
-
+		
 		// lock
 		ColorgyRefreshCenter.sharedInstance().lockWhileRefreshingToken()
 		
 		manager.POST("https://colorgy.io/oauth/token?", parameters: parameters, progress: nil, success: { (task: NSURLSessionDataTask, response: AnyObject?) -> Void in
 			guard let response = response else {
-				failure?(error: RefreshTokenError.FailToParseResponse, AFError: nil)
+				failure?(error: RefreshingError.FailToParseResponse, AFError: nil)
 				ColorgyRefreshCenter.sharedInstance().unlockWhenFinishRefreshingToken()
 				return
 			}
 			// TODO: Success
 			let json = JSON(response)
 			guard let result = ColorgyLoginResult(json: json) else {
-				failure?(error: RefreshTokenError.FailToParseResponse, AFError: nil)
+				failure?(error: RefreshingError.FailToParseResponse, AFError: nil)
 				return
 			}
 			ColorgyUserInformation.saveLoginResult(result)
@@ -118,7 +107,7 @@ final public class ColorgyRefreshCenter {
 			success?()
 			}, failure: { (operation: NSURLSessionDataTask?, error: NSError) -> Void in
 				let aferror = AFError(operation: operation, error: error)
-				failure?(error: RefreshTokenError.NetworkError, AFError: aferror)
+				failure?(error: RefreshingError.NetworkError, AFError: aferror)
 				ColorgyRefreshCenter.sharedInstance().unlockWhenFinishRefreshingToken()
 		})
 	}
