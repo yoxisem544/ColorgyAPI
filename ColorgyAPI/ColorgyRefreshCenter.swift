@@ -24,6 +24,13 @@ public enum RefreshingError: ErrorType {
 
 final public class ColorgyRefreshCenter {
 	
+	// MARK: - Parameters
+	/// Refresh Center's currnet refresh state
+	private var refreshState: RefreshTokenState
+	
+	/// background worker's timer
+	private var backgroundWorker: NSTimer?
+	
 	// MARK: - init
 	
 	/// **Singleton** of ColorgyRefreshCenter
@@ -66,10 +73,6 @@ final public class ColorgyRefreshCenter {
 			return refreshState
 		}
 	}
-	
-	// MARK: - Refreshing State
-	/// Refresh Center's currnet refresh state
-	private var refreshState: RefreshTokenState
 	
 	
 	
@@ -213,15 +216,59 @@ final public class ColorgyRefreshCenter {
 		})
 	}
 	
-	@objc private class func backgroundWorker() {
+	@objc private class func backgroundJob() {
 		print(ColorgyRefreshCenter.refreshTokenAliveTime().remainingTime)
 	}
 	
+	///
 	public class func startBackgroundWorker() {
-		autoreleasepool { 
-			let backgroundTimer = NSTimer(timeInterval: 3.0, target: self, selector: #selector(backgroundWorker), userInfo: nil, repeats: true)
-			backgroundTimer.fire()
-			NSRunLoop.currentRunLoop().addTimer(backgroundTimer, forMode: NSRunLoopCommonModes)
+		autoreleasepool {
+			ColorgyRefreshCenter.sharedInstance().backgroundWorker = NSTimer(timeInterval: 3.0, target: self, selector: #selector(ColorgyRefreshCenter.backgroundJob), userInfo: nil, repeats: true)
+			ColorgyRefreshCenter.sharedInstance().backgroundWorker?.fire()
+			if let worker = ColorgyRefreshCenter.sharedInstance().backgroundWorker {
+				NSRunLoop.currentRunLoop().addTimer(worker, forMode: NSRunLoopCommonModes)
+			}
 		}
 	}
+	
+	public class func stopBackgroundWorker() {
+		ColorgyRefreshCenter.sharedInstance().backgroundWorker?.invalidate()
+	}
+	
+	// MARK: - Background Hanlder
+	public class func enterBackground() {
+		// while app enter background
+		// set the token to need to check available
+		// lock it, check again while app enter foreground again
+		ColorgyRefreshCenter.sharedInstance().lockWhileRefreshingToken()
+		
+		// stop background worker
+		ColorgyRefreshCenter.stopBackgroundWorker()
+	}
+	
+	public class func enterForeground() {
+		// to see if token has expired
+		if ColorgyRefreshCenter.refreshTokenAliveTime().stillAlive {
+			// if available, unlock
+			ColorgyRefreshCenter.sharedInstance().unlockWhenFinishRefreshingToken()
+		} else {
+			// need to refresh
+			ColorgyRefreshCenter.retryUntilTokenIsAvailable()
+		}
+	
+		// start background worker
+		ColorgyRefreshCenter.startBackgroundWorker()
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
