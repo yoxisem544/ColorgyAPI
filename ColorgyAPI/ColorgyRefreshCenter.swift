@@ -191,6 +191,9 @@ final public class ColorgyRefreshCenter {
 	}
 	
 	// MARK: - Retry Handler
+	/// Call this method and will PROMISE giving you a new access token
+	///
+	/// BUT! If any error occur from server, such as parse result failure, server external or internal error, token will become nil
 	public class func retryUntilTokenIsAvailable() {
 		
 		// stop when refresh token is revoke
@@ -216,14 +219,20 @@ final public class ColorgyRefreshCenter {
 		})
 	}
 	
+	/// This is refresh center's background job, put this you want in it
+	///
+	/// This method will check available time every 30 seconds.
 	@objc private class func backgroundJob() {
 		print(ColorgyRefreshCenter.refreshTokenAliveTime().remainingTime)
+		if !ColorgyRefreshCenter.refreshTokenAliveTime().stillAlive {
+			ColorgyRefreshCenter.retryUntilTokenIsAvailable()
+		}
 	}
 	
-	///
+	/// Start background worker
 	public class func startBackgroundWorker() {
 		autoreleasepool {
-			ColorgyRefreshCenter.sharedInstance().backgroundWorker = NSTimer(timeInterval: 3.0, target: self, selector: #selector(ColorgyRefreshCenter.backgroundJob), userInfo: nil, repeats: true)
+			ColorgyRefreshCenter.sharedInstance().backgroundWorker = NSTimer(timeInterval: 30.0, target: self, selector: #selector(ColorgyRefreshCenter.backgroundJob), userInfo: nil, repeats: true)
 			ColorgyRefreshCenter.sharedInstance().backgroundWorker?.fire()
 			if let worker = ColorgyRefreshCenter.sharedInstance().backgroundWorker {
 				NSRunLoop.currentRunLoop().addTimer(worker, forMode: NSRunLoopCommonModes)
@@ -231,11 +240,17 @@ final public class ColorgyRefreshCenter {
 		}
 	}
 	
+	/// Stop background worker
 	public class func stopBackgroundWorker() {
 		ColorgyRefreshCenter.sharedInstance().backgroundWorker?.invalidate()
 	}
 	
 	// MARK: - Background Hanlder
+	/// Call this while entering background
+	///
+	/// While entering background:
+	/// - Will lock the refreshing state
+	/// - Will stop background worker
 	public class func enterBackground() {
 		// while app enter background
 		// set the token to need to check available
@@ -246,6 +261,11 @@ final public class ColorgyRefreshCenter {
 		ColorgyRefreshCenter.stopBackgroundWorker()
 	}
 	
+	/// Call this while entering foreground
+	///
+	/// While entering foreground:
+	/// - Will **try** to unlock the refreshing state
+	/// - Will start background worker
 	public class func enterForeground() {
 		// to see if token has expired
 		if ColorgyRefreshCenter.refreshTokenAliveTime().stillAlive {
