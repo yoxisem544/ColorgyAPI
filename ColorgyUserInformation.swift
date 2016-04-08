@@ -124,4 +124,10 @@ final public class ColorgyUserInformation {
 		let ud = NSUserDefaults.standardUserDefaults()
 		return ud.objectForKey(LoginResultKeys.createdDate) as? NSDate
 	}
+	
+	// MARK: Getter of User Information
+	public var userOrganization: String? {
+		let ud = NSUserDefaults.standardUserDefaults()
+		return ud.objectForKey(APIMeResultKeys.userOrganization) as? String
+	}
 }

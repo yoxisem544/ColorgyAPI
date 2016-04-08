@@ -19,6 +19,16 @@ public enum APIMeError: ErrorType {
 	case APIUnavailable
 }
 
+public enum APIError: ErrorType {
+	case FailToParseResult
+	case NetworkUnavailable
+	case NoAccessToken
+	case InvalidURLString
+	case APIConnectionFailure
+	case APIUnavailable
+	case NoOrganization
+}
+
 final public class ColorgyAPI : NSObject {
 	
 	// MARK: - Parameters
@@ -142,6 +152,55 @@ final public class ColorgyAPI : NSObject {
 					// then handle response
 					let aferror = AFError(operation: operation, error: error)
 					failure?(error: APIMeError.APIConnectionFailure, AFError: aferror)
+			})
+		}
+	}
+	
+	// MARK: - course API
+	/// Get courses from server.
+	///
+	/// - parameters:
+	///		- count: Pass the count you want to download. nil, 0, -1~ for all course.
+	/// - returns: A parsed [CourseRawDataObject]? array. Might be nil or 0 element.
+	public func getSchoolCourseData(count: Int?, year: Int, term: Int, success: () -> Void, process: () -> Void, failure: ((error: APIError, AFError: AFError?) -> Void)?) {
+		
+		guard networkAvailable() else {
+			failure?(error: APIError.NetworkUnavailable, AFError: nil)
+			return
+		}
+		
+		qosBlock { 
+			guard self.allowAPIAccessing() else {
+				failure?(error: APIError.APIUnavailable, AFError: nil)
+				return
+			}
+			
+			guard let accesstoken = self.accessToken else {
+				failure?(error: APIError.NoAccessToken, AFError: nil)
+				return
+			}
+			
+			guard let organization = ColorgyUserInformation.sharedInstance().userOrganization else {
+				failure?(error: APIError.NoOrganization, AFError: nil)
+				return
+			}
+			
+			let coursesCount = count ?? 20000
+			let url = "https://colorgy.io:443/api/v1/\(organization.lowercaseString)/courses.json?per_page=\(String(coursesCount))&&&filter%5Byear%5D=\(year)&filter%5Bterm%5D=\(term)&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&access_token=\(accesstoken)"
+			
+			guard url.isValidURLString else {
+				failure?(error: APIError.InvalidURLString, AFError: nil)
+				return
+			}
+			
+			self.manager.GET(url, parameters: nil, progress: nil, success: { (task: NSURLSessionDataTask, response: AnyObject?) in
+				if let response = response {
+					
+				} else {
+					
+				}
+				}, failure: { (operation: NSURLSessionDataTask?, error: NSError) in
+					
 			})
 		}
 	}
