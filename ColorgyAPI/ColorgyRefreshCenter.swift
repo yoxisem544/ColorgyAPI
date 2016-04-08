@@ -24,6 +24,8 @@ public enum RefreshingError: ErrorType {
 
 final public class ColorgyRefreshCenter {
 	
+	// MARK: - init
+	
 	/// **Singleton** of ColorgyRefreshCenter
 	/// 
 	/// Will get the only instance of refresh center
@@ -34,26 +36,6 @@ final public class ColorgyRefreshCenter {
 		}
 		
 		return Static.instance
-	}
-	
-	/// Used to get a new access token from server
-	var refreshToken: String? {
-		return ColorgyUserInformation.sharedInstance().userRefreshToken
-	}
-	
-	/// Used to get a access to server, retrieve some data
-	var accessToken: String? {
-		return ColorgyUserInformation.sharedInstance().userAccessToken
-	}
-	
-	/// Refresh Center's currnet refresh state
-	private var refreshState: RefreshTokenState
-	
-	/// Public refresh state getter
-	var currentRefreshState: RefreshTokenState {
-		get {
-			return refreshState
-		}
 	}
 	
 	private init() {
@@ -67,6 +49,48 @@ final public class ColorgyRefreshCenter {
 		AFNetworkReachabilityManager.sharedManager().startMonitoring()
 	}
 	
+	// MARK: - Public Getter
+	/// Used to get a new access token from server
+	var refreshToken: String? {
+		return ColorgyUserInformation.sharedInstance().userRefreshToken
+	}
+	
+	/// Used to get a access to server, retrieve some data
+	var accessToken: String? {
+		return ColorgyUserInformation.sharedInstance().userAccessToken
+	}
+	
+	/// Public refresh state getter
+	var currentRefreshState: RefreshTokenState {
+		get {
+			return refreshState
+		}
+	}
+	
+	// MARK: - Refreshing State
+	/// Refresh Center's currnet refresh state
+	private var refreshState: RefreshTokenState
+	
+	
+	
+	
+	// MARK: - Reachability
+	/// **Reachability**
+	///
+	/// Check network first before firing any api request
+	///
+	/// - returns: Bool - network availability
+	private class func networkAvailable() -> Bool {
+		let reachabilityManager = AFNetworkReachabilityManager.sharedManager()
+		
+		// get current status
+		let networkStatus =
+			(reachabilityManager.networkReachabilityStatus != .NotReachable
+				|| reachabilityManager.networkReachabilityStatus != .Unknown)
+		
+		return networkStatus
+	}
+	
 	/// Call this method to refresh current access token
 	///
 	/// This method will get called once. After calling this method, it will automatically lock itself.
@@ -75,11 +99,7 @@ final public class ColorgyRefreshCenter {
 	public class func refreshAccessToken(success: (() -> Void)?, failure: ((error: RefreshingError, AFError: AFError?) -> Void)?) {
 		
 		// check network first
-		let reachabilityManager = AFNetworkReachabilityManager.sharedManager()
-		let networkStatus =
-			(reachabilityManager.networkReachabilityStatus != .NotReachable
-				|| reachabilityManager.networkReachabilityStatus != .Unknown)
-		guard networkStatus else {
+		guard networkAvailable() else {
 			failure?(error: RefreshingError.NetworkUnavailable, AFError: nil)
 			return
 		}
@@ -120,6 +140,7 @@ final public class ColorgyRefreshCenter {
 			let json = JSON(response)
 			guard let result = ColorgyLoginResult(json: json) else {
 				failure?(error: RefreshingError.FailToParseResponse, AFError: nil)
+				ColorgyRefreshCenter.sharedInstance().unlockWhenFinishRefreshingToken()
 				return
 			}
 			ColorgyUserInformation.saveLoginResult(result)
@@ -132,6 +153,7 @@ final public class ColorgyRefreshCenter {
 		})
 	}
 	
+	// MARK: - State Handler
 	/// Change current refresh state
 	private func lockWhileRefreshingToken() {
 		self.refreshState = .Refreshing
