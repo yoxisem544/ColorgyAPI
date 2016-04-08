@@ -12,9 +12,10 @@ import SwiftyJSON
 
 enum APIMeError: ErrorType {
 	case FailToParseResult
-	case NetworkError
+	case NetworkUnavailable
 	case NoAccessToken
 	case InvalidURLString
+	case APIConnectionFailure
 }
 
 final public class ColorgyAPI : NSObject {
@@ -33,9 +34,9 @@ final public class ColorgyAPI : NSObject {
 	
 	/// This depends on Refresh center
 	/// Will lock if token is refreshing
-	/// - returns: 
-	///		- True: If token is available
-	///		- False: Time out, no network might cause this problem
+	/// - returns:
+	///   - True: If token is available
+	///   - False: Time out, no network might cause this problem
 	private func allowAPIAccessing() -> Bool {
 		
 		var retryCounter = 5
@@ -55,14 +56,35 @@ final public class ColorgyAPI : NSObject {
 		return false
 	}
 	
+	/// **Reachability**
+	///
+	/// Check network first before firing any api request
+	///
+	/// - returns: Bool - network availability
+	private func networkAvailable() -> Bool {
+		let reachabilityManager = AFNetworkReachabilityManager.sharedManager()
+		
+		// get current status
+		let networkStatus =
+			(reachabilityManager.networkReachabilityStatus != .NotReachable
+				|| reachabilityManager.networkReachabilityStatus != .Unknown)
+		
+		return networkStatus
+	}
+	
 	// MARK: - User API
-	// get me
+	
 	/// You can simply get Me API using this.
 	///
-	/// - returns: 
-	///		- result: ColorgyAPIMeResult?, you can store it.
-	///		- error: An error if you got one, then handle it.
+	/// - returns:
+	///   - result: ColorgyAPIMeResult?, you can store it.
+	///   - error: An error if you got one, then handle it.
 	func me(success: ((result: ColorgyAPIMeResult) -> Void)?, failure: ((error: APIMeError, AFError: AFError?) -> Void)?) {
+		
+		guard networkAvailable() else {
+			failure?(error: APIMeError.NetworkUnavailable, AFError: nil)
+			return
+		}
 		
 		let manager = AFHTTPSessionManager(baseURL: nil)
 		manager.requestSerializer = AFJSONRequestSerializer()
@@ -99,7 +121,7 @@ final public class ColorgyAPI : NSObject {
 			}, failure: { (operation: NSURLSessionDataTask?, error: NSError) -> Void in
 				// then handle response
 				let aferror = AFError(operation: operation, error: error)
-				failure?(error: APIMeError.NoAccessToken, AFError: aferror)
+				failure?(error: APIMeError.APIConnectionFailure, AFError: aferror)
 		})
 	}
 }

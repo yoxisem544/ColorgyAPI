@@ -18,7 +18,7 @@ public enum RefreshTokenState {
 public enum RefreshingError: ErrorType {
 	case NoRefreshToken
 	case FailToParseResponse
-	case NetworkError
+	case NetworkUnavailable
 }
 
 final public class ColorgyRefreshCenter {
@@ -66,7 +66,7 @@ final public class ColorgyRefreshCenter {
 			(reachabilityManager.networkReachabilityStatus != .NotReachable
 				|| reachabilityManager.networkReachabilityStatus != .Unknown)
 		guard networkStatus else {
-			failure?(error: RefreshingError.NetworkError, AFError: nil)
+			failure?(error: RefreshingError.NetworkUnavailable, AFError: nil)
 			return
 		}
 		
@@ -107,7 +107,7 @@ final public class ColorgyRefreshCenter {
 			success?()
 			}, failure: { (operation: NSURLSessionDataTask?, error: NSError) -> Void in
 				let aferror = AFError(operation: operation, error: error)
-				failure?(error: RefreshingError.NetworkError, AFError: aferror)
+				failure?(error: RefreshingError.NetworkUnavailable, AFError: aferror)
 				ColorgyRefreshCenter.sharedInstance().unlockWhenFinishRefreshingToken()
 		})
 	}
