@@ -117,10 +117,6 @@ final public class CourseRawDataObject: CustomStringConvertible {
 	///
 	/// :param: json: a json from server. This json is from **school API**, not user API.
 	public init?(json: JSON) {
-		self.name = ""
-		self.code = ""
-		self.year = Int()
-		self.term = Int()
 		
 		// must not be an array
 		guard !json.isArray else { return nil }

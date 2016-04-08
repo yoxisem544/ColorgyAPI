@@ -11,8 +11,8 @@ import Foundation
 /// **AFError** is used to check AFNetworking's erro state code and response body
 final public class AFError: NSObject {
 	
-	var statusCode: Int?
-	var responseBody: String?
+	let statusCode: Int?
+	let responseBody: String?
 	
 	override public var description: String { return "AFError:{\n\tstatusCode: \(statusCode)\n\tresponseBody: \(responseBody)\n" }
 	
