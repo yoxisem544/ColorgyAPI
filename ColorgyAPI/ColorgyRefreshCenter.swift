@@ -21,7 +21,7 @@ enum RefreshTokenError: ErrorType {
 	case NetworkError
 }
 
-class ColorgyRefreshCenter {
+final public class ColorgyRefreshCenter {
 
 	class func sharedInstance() -> ColorgyRefreshCenter {
 		
@@ -49,6 +49,16 @@ class ColorgyRefreshCenter {
 	
 	init() {
 		self.refreshState = RefreshTokenState.NotRefreshing
+	}
+	
+	// 必需要有回覆機制，refresh前要先看網路存不存在
+	class func refreshAccessToken() {
+		let manager = AFNetworkReachabilityManager.sharedManager()
+		if manager.reachable {
+			print("yolo")
+		} else {
+			print("yolo fuck !")
+		}
 	}
 	
 	class func refreshAccessToken(success: (() -> Void)?, failure: ((error: RefreshTokenError, AFError: AFError?) -> Void)?) {

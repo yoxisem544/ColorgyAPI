@@ -30,18 +30,18 @@ class ViewController: UIViewController {
 	}
 	
 	func yo() {
-		ColorgyLogin.FacebookLogin({ (token) -> Void in
-			ColorgyLogin.loginToColorgyWithFacebookToken(token, success: { (result) -> Void in
-				print(ColorgyRefreshCenter.sharedInstance().refreshToken)
-				ColorgyRefreshCenter.refreshAccessToken({ () -> Void in
-					print(ColorgyRefreshCenter.sharedInstance().refreshToken)
-					}, failure: nil)
-				}, failure: nil)
-			}) { (error) -> Void in
-				
-		}
+//		ColorgyLogin.FacebookLogin({ (token) -> Void in
+//			ColorgyLogin.loginToColorgyWithFacebookToken(token, success: { (result) -> Void in
+//				print(ColorgyRefreshCenter.sharedInstance().refreshToken)
+//				ColorgyRefreshCenter.refreshAccessToken({ () -> Void in
+//					print(ColorgyRefreshCenter.sharedInstance().refreshToken)
+//					}, failure: nil)
+//				}, failure: nil)
+//			}) { (error) -> Void in
+//				
+//		}
 		
-	
+		ColorgyRefreshCenter.refreshAccessToken()
 	}
 
 	override func didReceiveMemoryWarning() {

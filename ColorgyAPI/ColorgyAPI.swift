@@ -46,7 +46,10 @@ final public class ColorgyAPI : NSObject {
 			// wait for 3 seconds
 			NSThread.sleepForTimeInterval(3.0)
 			// check if available
-			if ColorgyRefreshCenter.sharedInstance()
+			if ColorgyRefreshCenter.sharedInstance().currentRefreshState == RefreshTokenState.NotRefreshing {
+				// if token is not refreshing, allow api accessing
+				return true
+			}
 		}
 		
 		return false
