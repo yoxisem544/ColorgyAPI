@@ -280,7 +280,13 @@ final public class ColorgyRefreshCenter {
 		ColorgyRefreshCenter.startBackgroundWorker()
 	}
 	
-	
+	public func yo() {
+		if ColorgyRefreshCenter.sharedInstance().currentRefreshState == .NotRefreshing {
+			ColorgyRefreshCenter.sharedInstance().lockWhileRefreshingToken()
+		} else {
+			ColorgyRefreshCenter.sharedInstance().unlockWhenFinishRefreshingToken()
+		}
+	}
 	
 	
 	

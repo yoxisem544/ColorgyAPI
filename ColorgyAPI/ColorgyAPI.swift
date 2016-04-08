@@ -21,8 +21,11 @@ public enum APIMeError: ErrorType {
 
 final public class ColorgyAPI : NSObject {
 	
+	// MARK: - Parameters
+	/// You can cancel all operation with this manager
 	public let manager: AFHTTPSessionManager
 	
+	// MARK: - Init
 	/// initializer
 	override public init() {
 		manager = AFHTTPSessionManager(baseURL: nil)
@@ -36,6 +39,15 @@ final public class ColorgyAPI : NSObject {
 		get {
 			return ColorgyRefreshCenter.sharedInstance().accessToken
 		}
+	}
+	
+	// MARK: - Helper
+	/// This Method will help you to wrap qos queue for you
+	private func qosBlock(block: () -> Void) {
+		let qos = Int(QOS_CLASS_USER_INTERACTIVE.rawValue)
+		dispatch_async(dispatch_get_global_queue(qos, 0), { () -> Void in
+			block()
+		})
 	}
 	
 	/// This depends on Refresh center
@@ -92,43 +104,45 @@ final public class ColorgyAPI : NSObject {
 			return
 		}
 		
-		guard allowAPIAccessing() else {
-			failure?(error: APIMeError.APIUnavailable, AFError: nil)
-			return
-		}
-		
-		print("getting me API")
-		
-		guard let accesstoken = self.accessToken else {
-			failure?(error: APIMeError.NoAccessToken, AFError: nil)
-			return
-		}
-		let url = "https://colorgy.io:443/api/v1/me.json?access_token=\(accesstoken)"
-		guard url.isValidURLString else {
-			failure?(error: APIMeError.InvalidURLString, AFError: nil)
-			return
-		}
-		
-		// then start job
-		manager.GET(url, parameters: nil, progress: nil,success: { (task: NSURLSessionDataTask, response: AnyObject?) -> Void in
-			// will pass in a json, then generate a result
-			guard let response = response else {
-				failure?(error: APIMeError.FailToParseResult, AFError: nil)
+		qosBlock { 
+			guard self.allowAPIAccessing() else {
+				failure?(error: APIMeError.APIUnavailable, AFError: nil)
 				return
 			}
-			let json = JSON(response)
-			guard let result = ColorgyAPIMeResult(json: json) else {
-				failure?(error: APIMeError.FailToParseResult, AFError: nil)
+			
+			print("getting me API")
+			
+			guard let accesstoken = self.accessToken else {
+				failure?(error: APIMeError.NoAccessToken, AFError: nil)
 				return
 			}
-			// store
-			ColorgyUserInformation.saveAPIMeResult(result)
-			// success
-			success?(result: result)
-			}, failure: { (operation: NSURLSessionDataTask?, error: NSError) -> Void in
-				// then handle response
-				let aferror = AFError(operation: operation, error: error)
-				failure?(error: APIMeError.APIConnectionFailure, AFError: aferror)
-		})
+			let url = "https://colorgy.io:443/api/v1/me.json?access_token=\(accesstoken)"
+			guard url.isValidURLString else {
+				failure?(error: APIMeError.InvalidURLString, AFError: nil)
+				return
+			}
+			
+			// then start job
+			self.manager.GET(url, parameters: nil, progress: nil,success: { (task: NSURLSessionDataTask, response: AnyObject?) -> Void in
+				// will pass in a json, then generate a result
+				guard let response = response else {
+					failure?(error: APIMeError.FailToParseResult, AFError: nil)
+					return
+				}
+				let json = JSON(response)
+				guard let result = ColorgyAPIMeResult(json: json) else {
+					failure?(error: APIMeError.FailToParseResult, AFError: nil)
+					return
+				}
+				// store
+				ColorgyUserInformation.saveAPIMeResult(result)
+				// success
+				success?(result: result)
+				}, failure: { (operation: NSURLSessionDataTask?, error: NSError) -> Void in
+					// then handle response
+					let aferror = AFError(operation: operation, error: error)
+					failure?(error: APIMeError.APIConnectionFailure, AFError: aferror)
+			})
+		}
 	}
 }

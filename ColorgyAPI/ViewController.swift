@@ -26,9 +26,40 @@ class ViewController: UIViewController {
 		view.addSubview(button)
 		button.addTarget(self, action: "yo", forControlEvents: UIControlEvents.TouchUpInside)
 		
+		let button2 = UIButton(type: UIButtonType.System)
+		button2.titleLabel?.text = "yo"
+		button2.frame.size = CGSize(width: 100, height: 100)
+		button2.backgroundColor = UIColor.grayColor()
+		button2.frame.origin.x = 100
+		view.addSubview(button2)
+		button2.addTarget(self, action: #selector(b2), forControlEvents: UIControlEvents.TouchUpInside)
+		
+		let button3 = UIButton(type: UIButtonType.System)
+		button3.titleLabel?.text = "yo"
+		button3.frame.size = CGSize(width: 100, height: 100)
+		button3.backgroundColor = UIColor.blueColor()
+		button3.frame.origin.x = 200
+		view.addSubview(button3)
+		button3.addTarget(self, action: #selector(b3), forControlEvents: UIControlEvents.TouchUpInside)
+		
 		print(ColorgyRefreshCenter.sharedInstance().refreshToken)
 		
 		ColorgyRefreshCenter.startBackgroundWorker()
+	}
+	
+	func b3() {
+		let api = ColorgyAPI()
+		api.me({ (result) in
+			print(result)
+			}) { (error, AFError) in
+				print(error)
+				print(AFError)
+		}
+	}
+	
+	func b2() {
+		ColorgyRefreshCenter.sharedInstance().yo()
+		print(ColorgyRefreshCenter.sharedInstance().currentRefreshState)
 	}
 	
 	func yo() {
