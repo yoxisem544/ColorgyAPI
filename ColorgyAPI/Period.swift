@@ -21,7 +21,11 @@ final public class Period: NSObject {
 	public init(day: Int, period: Int, location: String?) {
 		self.day = day
 		self.period = period
-		self.location = location
+		if location == "" {
+			self.location = "無上課地點"
+		} else {
+			self.location = location
+		}
 		super.init()
 	}
 	

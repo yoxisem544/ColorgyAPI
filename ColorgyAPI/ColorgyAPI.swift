@@ -79,13 +79,13 @@ final public class ColorgyAPI : NSObject {
 		while retryCounter > 0 {
 			// decrease counter
 			retryCounter -= 1
-			// wait for 3 seconds
-			NSThread.sleepForTimeInterval(3.0)
 			// check if available
 			if ColorgyRefreshCenter.sharedInstance().currentRefreshState == RefreshTokenState.NotRefreshing {
 				// if token is not refreshing, allow api accessing
 				return true
 			}
+			// wait for 3 seconds
+			NSThread.sleepForTimeInterval(3.0)
 		}
 		
 		return false
@@ -183,7 +183,7 @@ final public class ColorgyAPI : NSObject {
 	/// Get courses from server.
 	///
 	/// - parameters:
-	///   - count: Pass the count you want to download. nil, 0, -1~ for all course.
+	///   - count: Pass the count you want to download. nil~ for all course.
 	/// - returns: A parsed [CourseRawDataObject]? array. Might be nil or 0 element.
 	public func getSchoolCourseData(count: Int?, year: Int, term: Int, success: ((courses: [Course]) -> Void)?, process: (() -> Void)?, failure: ((error: APIError, AFError: AFError?) -> Void)?) {
 		
@@ -236,6 +236,7 @@ final public class ColorgyAPI : NSObject {
 					self.mainBlock({
 						success?(courses: courses)
 					})
+					return
 				} else {
 					self.mainBlock({
 						failure?(error: APIError.FailToParseResult, AFError: nil)
