@@ -229,6 +229,13 @@ final public class CourseRawDataObject: CustomStringConvertible {
 		return (self.dayLength() == self.locationLength() && self.dayLength() == self.periodLength())
 	}
 	
+	/// This is the minimum requirment of a period
+	///
+	/// If day and period array are not same length, you cannot parse it.
+	public func daysAndPeriodsAreSameLength() -> Bool {
+		return self.dayLength() == self.periodLength()
+	}
+	
 	/// Generate an array of CourseRawDataObject
 	public class func generateObjects(json: JSON) -> [CourseRawDataObject] {
 		

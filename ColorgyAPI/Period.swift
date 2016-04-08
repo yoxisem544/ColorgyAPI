@@ -24,4 +24,28 @@ final public class Period: NSObject {
 		self.location = location
 		super.init()
 	}
+	
+	public convenience init?(day: Int?, period: Int?, location: String?) {
+		guard day != nil else { return nil }
+		guard period != nil else { return nil }
+		
+		self.init(day: day!, period: period!, location: location)
+	}
+	
+	public class func generatePeriods(days: [Int?], periods: [Int?], locations: [String?]) -> [Period] {
+		
+		// initialize cache
+		var periodArray = [Period]()
+		
+		// 3 arrays must be the same length
+		guard days.count == periods.count && days.count == locations.count else { return periodArray }
+		
+		for index in 0..<days.endIndex {
+			if let p = Period(day: days[index], period: periods[index], location: locations[index]) {
+				periodArray.append(p)
+			}
+		}
+		
+		return periodArray
+	}
 }
