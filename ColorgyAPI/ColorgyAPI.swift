@@ -21,8 +21,13 @@ public enum APIMeError: ErrorType {
 
 final public class ColorgyAPI : NSObject {
 	
+	let manager: AFHTTPSessionManager
+	
 	/// initializer
 	override public init() {
+		manager = AFHTTPSessionManager(baseURL: nil)
+		manager.requestSerializer = AFJSONRequestSerializer()
+		manager.responseSerializer = AFJSONResponseSerializer()
 		super.init()
 	}
 	
@@ -91,10 +96,6 @@ final public class ColorgyAPI : NSObject {
 			failure?(error: APIMeError.APIUnavailable, AFError: nil)
 			return
 		}
-		
-		let manager = AFHTTPSessionManager(baseURL: nil)
-		manager.requestSerializer = AFJSONRequestSerializer()
-		manager.responseSerializer = AFJSONResponseSerializer()
 		
 		print("getting me API")
 		
