@@ -96,7 +96,7 @@ final public class ColorgyRefreshCenter {
 	/// This method will get called once. After calling this method, it will automatically lock itself.
 	/// Firing two request will cause refresh token to get wrong.
 	/// A refresh token can be use **only once**.
-	public class func refreshAccessToken(success: (() -> Void)?, failure: ((error: RefreshingError, AFError: AFError?) -> Void)?) {
+	public class func refreshAccessToken(success success: (() -> Void)?, failure: ((error: RefreshingError, AFError: AFError?) -> Void)?) {
 		
 		// check network first
 		guard networkAvailable() else {
@@ -164,7 +164,7 @@ final public class ColorgyRefreshCenter {
 		self.refreshState = .NotRefreshing
 	}
 	
-	// MARK: - Time
+	// MARK: - Time Remaining of A Token
 	/// Will return if token is still available, and its remaining time.
 	///
 	///	time less than 0 means that you need to refresh the token
@@ -185,5 +185,22 @@ final public class ColorgyRefreshCenter {
 		} else {
 			return (aliveTime - timeSinceTokenCreated, true)
 		}
+	}
+	
+	// MARK: - Retry Handler
+	private class func retryUntilTokenIsAvailable() {
+		
+		// stop when refresh token is revoke
+		
+		// check if token expried or not
+		// if its NOT alive, refresh fired!
+		guard !ColorgyRefreshCenter.refreshTokenAliveTime().stillAlive else { return }
+		// fire the refresh request
+		ColorgyRefreshCenter.refreshAccessToken(success: nil, failure: { (error, AFError) in
+			<#code#>
+		})
+			
+
+		
 	}
 }
