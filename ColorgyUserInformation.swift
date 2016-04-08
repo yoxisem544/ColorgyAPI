@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct LoginResultKeys {
+private struct LoginResultKeys {
 	static let created_at = "LoginResultKeys created_at"
 	static let scope = "LoginResultKeys scope"
 	static let token_type = "LoginResultKeys token_type"
@@ -17,7 +17,7 @@ struct LoginResultKeys {
 	static let refresh_token = "LoginResultKeys refresh_token"
 }
 
-struct APIMeResultKeys {
+private struct APIMeResultKeys {
 	static let userType = "APIMeResultKeys userType"
 	static let userAvatarUrl = "APIMeResultKeys userAvatarUrl"
 	static let userCoverPhotoUrl = "APIMeResultKeys userCoverPhotoUrl"
@@ -33,9 +33,9 @@ struct APIMeResultKeys {
 	static let userFBEmail = "APIMeResultKeys userFBEmail"
 }
 
-class ColorgyUserInformation {
+final public class ColorgyUserInformation {
 	
-	class func sharedInstance() -> ColorgyUserInformation {
+	public class func sharedInstance() -> ColorgyUserInformation {
 		
 		struct Static {
 			static let instance: ColorgyUserInformation = ColorgyUserInformation()
@@ -45,7 +45,7 @@ class ColorgyUserInformation {
 	}
 	
 	// MARK: save/delete Login Result
-	class func saveLoginResult(result: ColorgyLoginResult) {
+	public class func saveLoginResult(result: ColorgyLoginResult) {
 		let ud = NSUserDefaults.standardUserDefaults()
 		ud.setObject(result.created_at, forKey: LoginResultKeys.created_at)
 		ud.setObject(result.scope, forKey: LoginResultKeys.scope)
@@ -56,7 +56,7 @@ class ColorgyUserInformation {
 		ud.synchronize()
 	}
 	
-	class func deleteLoginResult() {
+	public class func deleteLoginResult() {
 		let ud = NSUserDefaults.standardUserDefaults()
 		ud.removeObjectForKey(LoginResultKeys.created_at)
 		ud.removeObjectForKey(LoginResultKeys.scope)
@@ -68,7 +68,7 @@ class ColorgyUserInformation {
 	}
 	
 	// MARK: Save/Delete API Me Result
-	class func saveAPIMeResult(result: ColorgyAPIMeResult) {
+	public class func saveAPIMeResult(result: ColorgyAPIMeResult) {
 		let ud = NSUserDefaults.standardUserDefaults()
 		ud.setObject(result._type, forKey: APIMeResultKeys.userType)
 		ud.setObject(result.avatar_url, forKey: APIMeResultKeys.userAvatarUrl)
@@ -86,7 +86,7 @@ class ColorgyUserInformation {
 		ud.synchronize()
 	}
 	
-	class func deleteAPIMeResult() {
+	public class func deleteAPIMeResult() {
 		let ud = NSUserDefaults.standardUserDefaults()
 		ud.removeObjectForKey(APIMeResultKeys.userType)
 		ud.removeObjectForKey(APIMeResultKeys.userAvatarUrl)
@@ -105,12 +105,12 @@ class ColorgyUserInformation {
 	}
 	
 	// MARK: Getters
-	var userAccessToken: String? {
+	public var userAccessToken: String? {
 		let ud = NSUserDefaults.standardUserDefaults()
 		return ud.objectForKey(LoginResultKeys.access_token) as? String
 	}
 	
-	var userRefreshToken: String? {
+	public var userRefreshToken: String? {
 		let ud = NSUserDefaults.standardUserDefaults()
 		return ud.objectForKey(LoginResultKeys.refresh_token) as? String
 	}
