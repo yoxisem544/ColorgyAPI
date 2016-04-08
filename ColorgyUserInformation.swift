@@ -15,6 +15,7 @@ private struct LoginResultKeys {
 	static let access_token = "LoginResultKeys access_token"
 	static let expires_in = "LoginResultKeys expires_in"
 	static let refresh_token = "LoginResultKeys refresh_token"
+	static let createdDate = "LoginResultKeys createdDate"
 }
 
 private struct APIMeResultKeys {
@@ -53,6 +54,7 @@ final public class ColorgyUserInformation {
 		ud.setObject(result.access_token, forKey: LoginResultKeys.access_token)
 		ud.setObject(result.expires_in, forKey: LoginResultKeys.expires_in)
 		ud.setObject(result.refresh_token, forKey: LoginResultKeys.refresh_token)
+		ud.setObject(result.createdDate, forKey: LoginResultKeys.createdDate)
 		ud.synchronize()
 	}
 	
@@ -64,6 +66,7 @@ final public class ColorgyUserInformation {
 		ud.removeObjectForKey(LoginResultKeys.access_token)
 		ud.removeObjectForKey(LoginResultKeys.expires_in)
 		ud.removeObjectForKey(LoginResultKeys.refresh_token)
+		ud.removeObjectForKey(LoginResultKeys.createdDate)
 		ud.synchronize()
 	}
 	
@@ -104,7 +107,8 @@ final public class ColorgyUserInformation {
 		ud.synchronize()
 	}
 	
-	// MARK: Getters
+	// MARK: - Getters
+	// MARK: Token
 	public var userAccessToken: String? {
 		let ud = NSUserDefaults.standardUserDefaults()
 		return ud.objectForKey(LoginResultKeys.access_token) as? String
@@ -113,5 +117,11 @@ final public class ColorgyUserInformation {
 	public var userRefreshToken: String? {
 		let ud = NSUserDefaults.standardUserDefaults()
 		return ud.objectForKey(LoginResultKeys.refresh_token) as? String
+	}
+	
+	// MARK: date since token created
+	public var tokenCreatedDate: NSDate? {
+		let ud = NSUserDefaults.standardUserDefaults()
+		return ud.objectForKey(LoginResultKeys.createdDate) as? NSDate
 	}
 }

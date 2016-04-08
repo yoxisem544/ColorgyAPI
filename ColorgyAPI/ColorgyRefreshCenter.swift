@@ -164,5 +164,26 @@ final public class ColorgyRefreshCenter {
 		self.refreshState = .NotRefreshing
 	}
 	
-	
+	// MARK: - Time
+	/// Will return if token is still available, and its remaining time.
+	///
+	///	time less than 0 means that you need to refresh the token
+	public class func refreshTokenAliveTime() -> (remainingTime: Double, stillAlive: Bool) {
+		
+		// 7000 second is closed to 2 hrs
+		let aliveTime: Double = 7000;
+		
+		guard let tokenCreatedDate = ColorgyUserInformation.sharedInstance().tokenCreatedDate else { return (-1, false) }
+		
+		let now = NSDate()
+		
+		let timeSinceTokenCreated = now.timeIntervalSinceDate(tokenCreatedDate)
+		
+		if timeSinceTokenCreated > aliveTime {
+			// token might be expired
+			return (aliveTime - timeSinceTokenCreated, false)
+		} else {
+			return (aliveTime - timeSinceTokenCreated, true)
+		}
+	}
 }

@@ -27,8 +27,9 @@ final public class ColorgyLoginResult : NSObject {
 	var access_token: String
 	var expires_in: Int
 	var refresh_token: String
+	var createdDate: NSDate
 	
-	override public var description: String { return "{\n\tcreated_at => \(created_at)\n\tscope => \(scope)\n\ttoken_type => \(token_type)\n\taccess_token => \(access_token)\n\texpires_in => \(expires_in)\n\trefresh_token => \(refresh_token)\n}" }
+	override public var description: String { return "{\n\tcreated_at => \(created_at)\n\tscope => \(scope)\n\ttoken_type => \(token_type)\n\taccess_token => \(access_token)\n\texpires_in => \(expires_in)\n\trefresh_token => \(refresh_token)\n\tcreatedDate => \(createdDate)\n}" }
 	
 	/// Initialization: Pass in json, then will generate a ColorgyLoginResult
 	///
@@ -59,6 +60,7 @@ final public class ColorgyLoginResult : NSObject {
 		self.access_token = String()
 		self.expires_in = Int()
 		self.refresh_token = String()
+		self.createdDate = NSDate()
 		
 		super.init()
 		

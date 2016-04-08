@@ -41,7 +41,7 @@ class ViewController: UIViewController {
 //				
 //		}
 		
-		ColorgyRefreshCenter.refreshAccessToken()
+		print(ColorgyRefreshCenter.refreshTokenAliveTime())
 	}
 
 	override func didReceiveMemoryWarning() {
