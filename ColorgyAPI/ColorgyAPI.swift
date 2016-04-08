@@ -21,7 +21,7 @@ public enum APIMeError: ErrorType {
 
 final public class ColorgyAPI : NSObject {
 	
-	let manager: AFHTTPSessionManager
+	public let manager: AFHTTPSessionManager
 	
 	/// initializer
 	override public init() {
@@ -85,7 +85,7 @@ final public class ColorgyAPI : NSObject {
 	/// - returns:
 	///   - result: ColorgyAPIMeResult?, you can store it.
 	///   - error: An error if you got one, then handle it.
-	func me(success: ((result: ColorgyAPIMeResult) -> Void)?, failure: ((error: APIMeError, AFError: AFError?) -> Void)?) {
+	public func me(success: ((result: ColorgyAPIMeResult) -> Void)?, failure: ((error: APIMeError, AFError: AFError?) -> Void)?) {
 		
 		guard networkAvailable() else {
 			failure?(error: APIMeError.NetworkUnavailable, AFError: nil)

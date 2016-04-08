@@ -10,7 +10,7 @@ import Foundation
 import SwiftyJSON
 
 // this is use to get key of the object/dictionary properly
-struct OAuthKey {
+public struct OAuthKey {
 	static let created_at = "created_at"
 	static let scope = "scope"
 	static let token_type = "token_type"
@@ -20,7 +20,7 @@ struct OAuthKey {
 }
 
 /// A result from Colorgy OAuth server.
-class ColorgyLoginResult : NSObject {
+final public class ColorgyLoginResult : NSObject {
 	var created_at: Int
 	var scope: String
 	var token_type: String
@@ -28,7 +28,7 @@ class ColorgyLoginResult : NSObject {
 	var expires_in: Int
 	var refresh_token: String
 	
-	override var description: String { return "{\n\tcreated_at => \(created_at)\n\tscope => \(scope)\n\ttoken_type => \(token_type)\n\taccess_token => \(access_token)\n\texpires_in => \(expires_in)\n\trefresh_token => \(refresh_token)\n}" }
+	override public var description: String { return "{\n\tcreated_at => \(created_at)\n\tscope => \(scope)\n\ttoken_type => \(token_type)\n\taccess_token => \(access_token)\n\texpires_in => \(expires_in)\n\trefresh_token => \(refresh_token)\n}" }
 	
 	/// Initialization: Pass in json, then will generate a ColorgyLoginResult
 	///

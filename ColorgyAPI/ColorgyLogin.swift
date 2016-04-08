@@ -12,20 +12,20 @@ import FBSDKCoreKit
 import AFNetworking
 import SwiftyJSON
 
-enum ColorgyFacebookLoginError: ErrorType {
+public enum ColorgyFacebookLoginError: ErrorType {
 	case CancelLoginFacebook
 	case FailLoginToFacebook
 	case FailToGenerateToken
 }
 
-enum ColorgyLoginError: ErrorType {
+public enum ColorgyLoginError: ErrorType {
 	case FailToParseResult
 	case NetworkError
 }
 
-class ColorgyLogin {
+final public class ColorgyLogin {
 	
-	class func FacebookLogin(success: (token: String) -> Void, failure: (error: ColorgyFacebookLoginError) -> Void) {
+	public class func FacebookLogin(success: (token: String) -> Void, failure: (error: ColorgyFacebookLoginError) -> Void) {
 		let manager = FBSDKLoginManager()
 		manager.logInWithReadPermissions(["email"], fromViewController: nil) { (result: FBSDKLoginManagerLoginResult!, error: NSError!) -> Void in
 			if error != nil {
@@ -45,7 +45,7 @@ class ColorgyLogin {
 		}
 	}
 	
-	class func loginToColorgyWithFacebookToken(token: String, success: ((result: ColorgyLoginResult) -> Void)?, failure: ((error: ColorgyLoginError, AFError: AFError?) -> Void)?) {
+	public class func loginToColorgyWithFacebookToken(token: String, success: ((result: ColorgyLoginResult) -> Void)?, failure: ((error: ColorgyLoginError, AFError: AFError?) -> Void)?) {
 		
 		let manager = AFHTTPSessionManager(baseURL: nil)
 		manager.requestSerializer = AFJSONRequestSerializer()

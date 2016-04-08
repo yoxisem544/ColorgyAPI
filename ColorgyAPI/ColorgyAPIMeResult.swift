@@ -30,7 +30,7 @@ private struct APIResult {
 }
 
 /// You can easily use this to handle with result from Me API.
-class ColorgyAPIMeResult : CustomStringConvertible {
+final public class ColorgyAPIMeResult : CustomStringConvertible {
 	
 	var id: Int
 	var uuid: String
@@ -47,7 +47,7 @@ class ColorgyAPIMeResult : CustomStringConvertible {
 	var email: String?
 	var fbemail: String?
 	
-	var description: String { return "ColorgyAPIMeResult: {\n\tid => \(id)\n\tuuid => \(uuid)\n\tusername => \(username)\n\tname => \(name)\n\tavatar_url => \(avatar_url)\n\tcover_photo_url => \(cover_photo_url)\n\t_type => \(_type)\n\torganization => \(organization)\n\tdepartment => \(department)\n\tpossible_organization_code => \(possible_organization_code)\n\tpossible_department_code => \(possible_department_code)\n\temail => \(email)\n\tfbemail => \(fbemail)\n}" }
+	public var description: String { return "ColorgyAPIMeResult: {\n\tid => \(id)\n\tuuid => \(uuid)\n\tusername => \(username)\n\tname => \(name)\n\tavatar_url => \(avatar_url)\n\tcover_photo_url => \(cover_photo_url)\n\t_type => \(_type)\n\torganization => \(organization)\n\tdepartment => \(department)\n\tpossible_organization_code => \(possible_organization_code)\n\tpossible_department_code => \(possible_department_code)\n\temail => \(email)\n\tfbemail => \(fbemail)\n}" }
 	
 	func isUserRegisteredTheirSchool() -> Bool {
 		if (self.possible_organization_code == nil || self.possible_department_code == nil) {
@@ -81,7 +81,7 @@ class ColorgyAPIMeResult : CustomStringConvertible {
 	}
 }
 
-class ColorgyAPIUserResult : CustomStringConvertible {
+final public class ColorgyAPIUserResult : CustomStringConvertible {
 	
 	var id: Int
 	var uuid: String
@@ -95,7 +95,7 @@ class ColorgyAPIUserResult : CustomStringConvertible {
 	var possible_organization_code: String?
 	var possible_department_code: String?
 	
-	var description: String { return "ColorgyAPIUserResult: {\n\tid => \(id)\n\tuuid => \(uuid)\n\tusername => \(username)\n\tname => \(name)\n\tavatar_url => \(avatar_url)\n\tcover_photo_url => \(cover_photo_url)\n\t_type => \(_type)\n\torganization => \(organization)\n\tdepartment => \(department)\n\tpossible_organization_code => \(possible_organization_code)\n\tpossible_department_code => \(possible_department_code)\n}" }
+	public var description: String { return "ColorgyAPIUserResult: {\n\tid => \(id)\n\tuuid => \(uuid)\n\tusername => \(username)\n\tname => \(name)\n\tavatar_url => \(avatar_url)\n\tcover_photo_url => \(cover_photo_url)\n\t_type => \(_type)\n\torganization => \(organization)\n\tdepartment => \(department)\n\tpossible_organization_code => \(possible_organization_code)\n\tpossible_department_code => \(possible_department_code)\n}" }
 	
 	init?(json: JSON) {
 		// failable initializer must have all properties initialized before returning nil
