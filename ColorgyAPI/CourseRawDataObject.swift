@@ -21,44 +21,44 @@ final public class CourseRawDataObject: CustomStringConvertible {
 	// 1. properties
 	// cache data from server
 	// required
-	var name: String
-	var code: String
-	var year: Int
-	var term: Int
+	let name: String
+	let code: String
+	let year: Int
+	let term: Int
 	
 	// optional
-	var credits: Int?
-	var lecturer: String?
-	var type: String?
-	var id: Int?
+	let credits: Int?
+	let lecturer: String?
+	let type: String?
+	let id: Int?
 	
-	var day_1: Int?
-	var day_2: Int?
-	var day_3: Int?
-	var day_4: Int?
-	var day_5: Int?
-	var day_6: Int?
-	var day_7: Int?
-	var day_8: Int?
-	var day_9: Int?
-	var period_1: Int?
-	var period_2: Int?
-	var period_3: Int?
-	var period_4: Int?
-	var period_5: Int?
-	var period_6: Int?
-	var period_7: Int?
-	var period_8: Int?
-	var period_9: Int?
-	var location_1: String?
-	var location_2: String?
-	var location_3: String?
-	var location_4: String?
-	var location_5: String?
-	var location_6: String?
-	var location_7: String?
-	var location_8: String?
-	var location_9: String?
+	let day_1: Int?
+	let day_2: Int?
+	let day_3: Int?
+	let day_4: Int?
+	let day_5: Int?
+	let day_6: Int?
+	let day_7: Int?
+	let day_8: Int?
+	let day_9: Int?
+	let period_1: Int?
+	let period_2: Int?
+	let period_3: Int?
+	let period_4: Int?
+	let period_5: Int?
+	let period_6: Int?
+	let period_7: Int?
+	let period_8: Int?
+	let period_9: Int?
+	let location_1: String?
+	let location_2: String?
+	let location_3: String?
+	let location_4: String?
+	let location_5: String?
+	let location_6: String?
+	let location_7: String?
+	let location_8: String?
+	let location_9: String?
 	
 	// new part
 	var general_code: String?
@@ -179,41 +179,61 @@ final public class CourseRawDataObject: CustomStringConvertible {
 		self.general_code = json[rawDataKey.general_code].string
 	}
 	// 3. methods.
-	/// This method can get the counts of days, periods and locations array's length.
+	/// This method can get the counts of days array's length.
 	///
-	/// :returns: Count of days, periods and locations array.
-	public func sessionLength() -> Int {
-		if self.day_1 == nil {
-			return 0
-		}
-		if self.day_2 == nil {
-			return 1
-		}
-		if self.day_3 == nil {
-			return 2
-		}
-		if self.day_4 == nil {
-			return 3
-		}
-		if self.day_5 == nil {
-			return 4
-		}
-		if self.day_6 == nil {
-			return 5
-		}
-		if self.day_7 == nil {
-			return 6
-		}
-		if self.day_8 == nil {
-			return 7
-		}
-		if self.day_9 == nil {
-			return 8
-		}
+	/// - returns: Count of days array.
+	public func dayLength() -> Int {
+		guard self.day_1 != nil else { return 0 }
+		guard self.day_2 != nil else { return 1 }
+		guard self.day_3 != nil else { return 2 }
+		guard self.day_4 != nil else { return 3 }
+		guard self.day_5 != nil else { return 4 }
+		guard self.day_6 != nil else { return 5 }
+		guard self.day_7 != nil else { return 6 }
+		guard self.day_8 != nil else { return 7 }
+		guard self.day_9 != nil else { return 8 }
 		return 9
-		
 	}
 	
+	/// This method can get the counts of periods array's length.
+	///
+	/// - returns: Count of periods array.
+	public func periodLength() -> Int {
+		guard self.period_1 != nil else { return 0 }
+		guard self.period_2 != nil else { return 1 }
+		guard self.period_3 != nil else { return 2 }
+		guard self.period_4 != nil else { return 3 }
+		guard self.period_5 != nil else { return 4 }
+		guard self.period_6 != nil else { return 5 }
+		guard self.period_7 != nil else { return 6 }
+		guard self.period_8 != nil else { return 7 }
+		guard self.period_9 != nil else { return 8 }
+		return 9
+	}
+	
+	/// This method can get the counts of locations array's length.
+	///
+	/// - returns: Count of locations array.
+	public func locationLength() -> Int {
+		guard self.location_1 != nil else { return 0 }
+		guard self.location_2 != nil else { return 1 }
+		guard self.location_3 != nil else { return 2 }
+		guard self.location_4 != nil else { return 3 }
+		guard self.location_5 != nil else { return 4 }
+		guard self.location_6 != nil else { return 5 }
+		guard self.location_7 != nil else { return 6 }
+		guard self.location_8 != nil else { return 7 }
+		guard self.location_9 != nil else { return 8 }
+		return 9
+	}
+	
+	/// Can check if periods, days, locations are the same length
+	/// - returns: Bool - if three arrays are at same lenth
+	public func isSameDataLength() -> Bool {
+		return (self.dayLength() == self.locationLength() && self.dayLength() == self.periodLength())
+	}
+	
+	/// Generate an array of CourseRawDataObject
 	public class func generateObjects(json: JSON) -> [CourseRawDataObject] {
 		
 		// initialize cache

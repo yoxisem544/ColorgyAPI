@@ -14,6 +14,7 @@
 		635479721CB7C9B800DE8CBC /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635479711CB7C9B800DE8CBC /* Course.swift */; };
 		635479741CB7CA5000DE8CBC /* CourseRawDataObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635479731CB7CA5000DE8CBC /* CourseRawDataObject.swift */; };
 		635479761CB7CAA600DE8CBC /* SwiftyJSONExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635479751CB7CAA600DE8CBC /* SwiftyJSONExtension.swift */; };
+		6354797A1CB7DD1500DE8CBC /* Period.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635479791CB7DD1500DE8CBC /* Period.swift */; };
 		63B619121CA2C98E000CCB8D /* ColorgyLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B619111CA2C98E000CCB8D /* ColorgyLogin.swift */; };
 		63B619141CA2D4D5000CCB8D /* ColorgyLoginResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B619131CA2D4D5000CCB8D /* ColorgyLoginResult.swift */; };
 		63B619161CA2DBC2000CCB8D /* AFNetworkingErrorParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B619151CA2DBC2000CCB8D /* AFNetworkingErrorParser.swift */; };
@@ -59,6 +60,7 @@
 		635479711CB7C9B800DE8CBC /* Course.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
 		635479731CB7CA5000DE8CBC /* CourseRawDataObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseRawDataObject.swift; sourceTree = "<group>"; };
 		635479751CB7CAA600DE8CBC /* SwiftyJSONExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSONExtension.swift; sourceTree = "<group>"; };
+		635479791CB7DD1500DE8CBC /* Period.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Period.swift; sourceTree = "<group>"; };
 		63B619111CA2C98E000CCB8D /* ColorgyLogin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorgyLogin.swift; sourceTree = "<group>"; };
 		63B619131CA2D4D5000CCB8D /* ColorgyLoginResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorgyLoginResult.swift; sourceTree = "<group>"; };
 		63B619151CA2DBC2000CCB8D /* AFNetworkingErrorParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AFNetworkingErrorParser.swift; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 				63B6191F1CA39B54000CCB8D /* ColorgyAPIMeResult.swift */,
 				6354796B1CB784AC00DE8CBC /* ColorgyAPIUserResult.swift */,
 				635479711CB7C9B800DE8CBC /* Course.swift */,
+				635479791CB7DD1500DE8CBC /* Period.swift */,
 				635479731CB7CA5000DE8CBC /* CourseRawDataObject.swift */,
 				635479751CB7CAA600DE8CBC /* SwiftyJSONExtension.swift */,
 				63B6191D1CA3998A000CCB8D /* StringExtension.swift */,
@@ -382,6 +385,7 @@
 				63B619181CA2DEB2000CCB8D /* AFError.swift in Sources */,
 				635479761CB7CAA600DE8CBC /* SwiftyJSONExtension.swift in Sources */,
 				635479701CB7915400DE8CBC /* DateExtension.swift in Sources */,
+				6354797A1CB7DD1500DE8CBC /* Period.swift in Sources */,
 				6354796C1CB784AC00DE8CBC /* ColorgyAPIUserResult.swift in Sources */,
 				63CEE3691CA24C1400EAD560 /* ViewController.swift in Sources */,
 				63B619201CA39B54000CCB8D /* ColorgyAPIMeResult.swift in Sources */,
