@@ -9,7 +9,12 @@
 import Foundation
 
 extension String {
+	
 	var isValidURLString: Bool {
 		return (NSURL(string: self) != nil)
+	}
+	
+	var intValue: Int? {
+		return Int(self)
 	}
 }

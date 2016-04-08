@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4D99C0FE3EFDDE456A3F2537 /* Pods_ColorgyAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A793ED9D1F2E8CB1DC8B3BA /* Pods_ColorgyAPI.framework */; };
 		6354796C1CB784AC00DE8CBC /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6354796B1CB784AC00DE8CBC /* File.swift */; };
+		6354796E1CB790EB00DE8CBC /* TimeStamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6354796D1CB790EB00DE8CBC /* TimeStamp.swift */; };
 		63B619121CA2C98E000CCB8D /* ColorgyLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B619111CA2C98E000CCB8D /* ColorgyLogin.swift */; };
 		63B619141CA2D4D5000CCB8D /* ColorgyLoginResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B619131CA2D4D5000CCB8D /* ColorgyLoginResult.swift */; };
 		63B619161CA2DBC2000CCB8D /* AFNetworkingErrorParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B619151CA2DBC2000CCB8D /* AFNetworkingErrorParser.swift */; };
@@ -49,6 +50,7 @@
 		3E8375D19B47FD5FCA3FF983 /* Pods-ColorgyAPI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColorgyAPI.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ColorgyAPI/Pods-ColorgyAPI.debug.xcconfig"; sourceTree = "<group>"; };
 		5A793ED9D1F2E8CB1DC8B3BA /* Pods_ColorgyAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ColorgyAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6354796B1CB784AC00DE8CBC /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		6354796D1CB790EB00DE8CBC /* TimeStamp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeStamp.swift; sourceTree = "<group>"; };
 		63B619111CA2C98E000CCB8D /* ColorgyLogin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorgyLogin.swift; sourceTree = "<group>"; };
 		63B619131CA2D4D5000CCB8D /* ColorgyLoginResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorgyLoginResult.swift; sourceTree = "<group>"; };
 		63B619151CA2DBC2000CCB8D /* AFNetworkingErrorParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AFNetworkingErrorParser.swift; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				63B6191B1CA38EC5000CCB8D /* ColorgyUserInformation.swift */,
+				6354796D1CB790EB00DE8CBC /* TimeStamp.swift */,
 				63CEE3941CA24D1B00EAD560 /* Header.h */,
 				63CEE3651CA24C1400EAD560 /* ColorgyAPI */,
 				63CEE37A1CA24C1400EAD560 /* ColorgyAPITests */,
@@ -367,6 +370,7 @@
 				6354796C1CB784AC00DE8CBC /* File.swift in Sources */,
 				63CEE3691CA24C1400EAD560 /* ViewController.swift in Sources */,
 				63B619201CA39B54000CCB8D /* ColorgyAPIMeResult.swift in Sources */,
+				6354796E1CB790EB00DE8CBC /* TimeStamp.swift in Sources */,
 				63B6191E1CA3998A000CCB8D /* StringExtension.swift in Sources */,
 				63B619121CA2C98E000CCB8D /* ColorgyLogin.swift in Sources */,
 				63CEE3961CA24DB800EAD560 /* ColorgyAPI.swift in Sources */,
