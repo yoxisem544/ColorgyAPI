@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// **AFError** is used to check AFNetworking's erro state code and response body
 final public class AFError: NSObject {
 	
 	var statusCode: Int?

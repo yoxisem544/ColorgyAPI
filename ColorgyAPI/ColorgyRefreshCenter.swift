@@ -188,19 +188,40 @@ final public class ColorgyRefreshCenter {
 	}
 	
 	// MARK: - Retry Handler
-	private class func retryUntilTokenIsAvailable() {
+	public class func retryUntilTokenIsAvailable() {
 		
 		// stop when refresh token is revoke
 		
 		// check if token expried or not
 		// if its NOT alive, refresh fired!
 		guard !ColorgyRefreshCenter.refreshTokenAliveTime().stillAlive else { return }
+		// dont fire is token is refreshing, only fire the request when needed.
+		guard ColorgyRefreshCenter.sharedInstance().currentRefreshState == RefreshTokenState.NotRefreshing else { return }
 		// fire the refresh request
-		ColorgyRefreshCenter.refreshAccessToken(success: nil, failure: { (error, AFError) in
-			<#code#>
+		ColorgyRefreshCenter.refreshAccessToken(success: {
+			print("ok")
+			}, failure: { (error, AFError) in
+			if error == RefreshingError.NetworkUnavailable {
+				// try again
+				let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(Double(NSEC_PER_SEC) * 2.0))
+                dispatch_after(delay, dispatch_get_main_queue(), { () -> Void in
+					ColorgyRefreshCenter.retryUntilTokenIsAvailable()
+                })
+			} else {
+				// TODO: fatal error
+			}
 		})
-			
-
-		
+	}
+	
+	@objc private class func backgroundWorker() {
+		print(ColorgyRefreshCenter.refreshTokenAliveTime().remainingTime)
+	}
+	
+	public class func startBackgroundWorker() {
+		autoreleasepool { 
+			let backgroundTimer = NSTimer(timeInterval: 3.0, target: self, selector: #selector(backgroundWorker), userInfo: nil, repeats: true)
+			backgroundTimer.fire()
+			NSRunLoop.currentRunLoop().addTimer(backgroundTimer, forMode: NSRunLoopCommonModes)
+		}
 	}
 }

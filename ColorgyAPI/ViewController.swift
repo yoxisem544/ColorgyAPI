@@ -27,6 +27,8 @@ class ViewController: UIViewController {
 		button.addTarget(self, action: "yo", forControlEvents: UIControlEvents.TouchUpInside)
 		
 		print(ColorgyRefreshCenter.sharedInstance().refreshToken)
+		
+		ColorgyRefreshCenter.startBackgroundWorker()
 	}
 	
 	func yo() {
