@@ -1,8 +1,8 @@
 //
-//  ColorgyAPIMeResult.swift
+//  File.swift
 //  ColorgyAPI
 //
-//  Created by David on 2016/3/24.
+//  Created by David on 2016/4/8.
 //  Copyright © 2016年 David. All rights reserved.
 //
 
@@ -29,8 +29,7 @@ private struct APIResult {
 	}
 }
 
-/// You can easily use this to handle with result from Me API.
-final public class ColorgyAPIMeResult : CustomStringConvertible {
+final public class ColorgyAPIUserResult : CustomStringConvertible {
 	
 	var id: Int
 	var uuid: String
@@ -43,24 +42,14 @@ final public class ColorgyAPIMeResult : CustomStringConvertible {
 	var department: String?
 	var possible_organization_code: String?
 	var possible_department_code: String?
-	//--------------new data----------------
-	var email: String?
-	var fbemail: String?
 	
-	public var description: String { return "ColorgyAPIMeResult: {\n\tid => \(id)\n\tuuid => \(uuid)\n\tusername => \(username)\n\tname => \(name)\n\tavatar_url => \(avatar_url)\n\tcover_photo_url => \(cover_photo_url)\n\t_type => \(_type)\n\torganization => \(organization)\n\tdepartment => \(department)\n\tpossible_organization_code => \(possible_organization_code)\n\tpossible_department_code => \(possible_department_code)\n\temail => \(email)\n\tfbemail => \(fbemail)\n}" }
-	
-	func isUserRegisteredTheirSchool() -> Bool {
-		if (self.possible_organization_code == nil || self.possible_department_code == nil) {
-			return false
-		}
-		return true
-	}
+	public var description: String { return "ColorgyAPIUserResult: {\n\tid => \(id)\n\tuuid => \(uuid)\n\tusername => \(username)\n\tname => \(name)\n\tavatar_url => \(avatar_url)\n\tcover_photo_url => \(cover_photo_url)\n\t_type => \(_type)\n\torganization => \(organization)\n\tdepartment => \(department)\n\tpossible_organization_code => \(possible_organization_code)\n\tpossible_department_code => \(possible_department_code)\n}" }
 	
 	init?(json: JSON) {
 		// failable initializer must have all properties initialized before returning nil
 		self.id = -1
 		self.uuid = ""
-	
+		
 		// necessary part
 		guard let id = json[APIResult.Me.id].int else { return nil }
 		self.id = id
@@ -76,7 +65,5 @@ final public class ColorgyAPIMeResult : CustomStringConvertible {
 		self.department = json[APIResult.Me.department].string
 		self.possible_organization_code = json[APIResult.Me.possible_organization_code].string
 		self.possible_department_code = json[APIResult.Me.possible_department_code].string
-		self.email = json[APIResult.Me.email].string
-		self.fbemail = json[APIResult.Me.fbemail].string
 	}
 }
