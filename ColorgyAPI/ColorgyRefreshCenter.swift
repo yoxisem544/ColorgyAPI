@@ -19,10 +19,14 @@ public enum RefreshingError: ErrorType {
 	case NoRefreshToken
 	case FailToParseResponse
 	case NetworkUnavailable
+	case TokenStillRefreshing
 }
 
 final public class ColorgyRefreshCenter {
 	
+	/// **Singleton** of ColorgyRefreshCenter
+	/// 
+	/// Will get the only instance of refresh center
 	class func sharedInstance() -> ColorgyRefreshCenter {
 		
 		struct Static {
@@ -32,12 +36,17 @@ final public class ColorgyRefreshCenter {
 		return Static.instance
 	}
 	
+	/// Used to get a new access token from server
 	var refreshToken: String? {
 		return ColorgyUserInformation.sharedInstance().userRefreshToken
 	}
+	
+	/// Used to get a access to server, retrieve some data
 	var accessToken: String? {
 		return ColorgyUserInformation.sharedInstance().userAccessToken
 	}
+	
+	/// Refresh Center's currnet refresh state
 	private var refreshState: RefreshTokenState
 	
 	/// Public refresh state getter
@@ -47,7 +56,7 @@ final public class ColorgyRefreshCenter {
 		}
 	}
 	
-	init() {
+	private init() {
 		self.refreshState = RefreshTokenState.NotRefreshing
 	}
 	
@@ -58,6 +67,11 @@ final public class ColorgyRefreshCenter {
 		AFNetworkReachabilityManager.sharedManager().startMonitoring()
 	}
 	
+	/// Call this method to refresh current access token
+	///
+	/// This method will get called once. After calling this method, it will automatically lock itself.
+	/// Firing two request will cause refresh token to get wrong.
+	/// A refresh token can be use **only once**.
 	public class func refreshAccessToken(success: (() -> Void)?, failure: ((error: RefreshingError, AFError: AFError?) -> Void)?) {
 		
 		// check network first
@@ -87,6 +101,12 @@ final public class ColorgyRefreshCenter {
 			"refresh_token": refreshToken
 		]
 		
+		// check if not refreshing
+		guard ColorgyRefreshCenter.sharedInstance().currentRefreshState == .NotRefreshing else {
+			failure?(error: RefreshingError.TokenStillRefreshing, AFError: nil)
+			return
+		}
+		
 		// lock
 		ColorgyRefreshCenter.sharedInstance().lockWhileRefreshingToken()
 		
@@ -112,10 +132,12 @@ final public class ColorgyRefreshCenter {
 		})
 	}
 	
+	/// Change current refresh state
 	private func lockWhileRefreshingToken() {
 		self.refreshState = .Refreshing
 	}
 	
+	/// Change current refresh state
 	private func unlockWhenFinishRefreshingToken() {
 		self.refreshState = .NotRefreshing
 	}

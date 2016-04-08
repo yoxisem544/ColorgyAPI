@@ -10,18 +10,19 @@ import Foundation
 import AFNetworking
 import SwiftyJSON
 
-enum APIMeError: ErrorType {
+public enum APIMeError: ErrorType {
 	case FailToParseResult
 	case NetworkUnavailable
 	case NoAccessToken
 	case InvalidURLString
 	case APIConnectionFailure
+	case APIUnavailable
 }
 
 final public class ColorgyAPI : NSObject {
 	
 	/// initializer
-	override init() {
+	override public init() {
 		super.init()
 	}
 	
@@ -83,6 +84,11 @@ final public class ColorgyAPI : NSObject {
 		
 		guard networkAvailable() else {
 			failure?(error: APIMeError.NetworkUnavailable, AFError: nil)
+			return
+		}
+		
+		guard allowAPIAccessing() else {
+			failure?(error: APIMeError.APIUnavailable, AFError: nil)
 			return
 		}
 		
