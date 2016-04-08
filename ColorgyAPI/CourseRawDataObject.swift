@@ -16,7 +16,7 @@ import SwiftyJSON
 /// This object make it easier to deal with json formate data.
 ///
 /// This json is from school API, not user API.
-class CourseRawDataObject: CustomStringConvertible {
+final public class CourseRawDataObject: CustomStringConvertible {
 	
 	// 1. properties
 	// cache data from server
@@ -116,7 +116,7 @@ class CourseRawDataObject: CustomStringConvertible {
 		}
 	}
 	
-	var description: String { return  "{\n\tname: \(name)\n\tcode: \(code)\n\tyear: \(year)\n\tterm: \(term)\n\tcredits: \(credits)\n\tlecturer: \(lecturer)\n\ttype: \(type)\n\tid: \(id)\n\tday_1: \(day_1)\n\tday_2: \(day_2)\n\tday_3: \(day_3)\n\tday_4: \(day_4)\n\tday_5: \(day_5)\n\tday_6: \(day_6)\n\tday_7: \(day_7)\n\tday_8: \(day_8)\n\tday_9: \(day_9)\n\tperiod_1: \(period_1)\n\tperiod_2: \(period_2)\n\tperiod_3: \(period_3)\n\tperiod_4: \(period_4)\n\tperiod_5: \(period_5)\n\tperiod_6: \(period_6)\n\tperiod_7: \(period_7)\n\tperiod_8: \(period_8)\n\tperiod_9: \(period_9)\n\tlocation_1: \(location_1)\n\tlocation_2: \(location_2)\n\tlocation_3: \(location_3)\n\tlocation_4: \(location_4)\n\tlocation_5: \(location_5)\n\tlocation_6: \(location_6)\n\tlocation_7: \(location_7)\n\tlocation_8: \(location_8)\n\tlocation_9: \(location_9)\n\tgeneral_code: \(general_code)\n}" }
+	public var description: String { return  "{\n\tname: \(name)\n\tcode: \(code)\n\tyear: \(year)\n\tterm: \(term)\n\tcredits: \(credits)\n\tlecturer: \(lecturer)\n\ttype: \(type)\n\tid: \(id)\n\tday_1: \(day_1)\n\tday_2: \(day_2)\n\tday_3: \(day_3)\n\tday_4: \(day_4)\n\tday_5: \(day_5)\n\tday_6: \(day_6)\n\tday_7: \(day_7)\n\tday_8: \(day_8)\n\tday_9: \(day_9)\n\tperiod_1: \(period_1)\n\tperiod_2: \(period_2)\n\tperiod_3: \(period_3)\n\tperiod_4: \(period_4)\n\tperiod_5: \(period_5)\n\tperiod_6: \(period_6)\n\tperiod_7: \(period_7)\n\tperiod_8: \(period_8)\n\tperiod_9: \(period_9)\n\tlocation_1: \(location_1)\n\tlocation_2: \(location_2)\n\tlocation_3: \(location_3)\n\tlocation_4: \(location_4)\n\tlocation_5: \(location_5)\n\tlocation_6: \(location_6)\n\tlocation_7: \(location_7)\n\tlocation_8: \(location_8)\n\tlocation_9: \(location_9)\n\tgeneral_code: \(general_code)\n}" }
 	
 	private struct rawDataKey {
 		// required
@@ -169,7 +169,7 @@ class CourseRawDataObject: CustomStringConvertible {
 	/// You need to pass in a json, then will return a CourseRawDataObject?
 	///
 	/// :param: json: a json from server. This json is from **school API**, not user API.
-	init?(json: JSON?) {
+	public init?(json: JSON?) {
 		self.name = ""
 		self.code = ""
 		self.year = Int()
@@ -309,7 +309,7 @@ class CourseRawDataObject: CustomStringConvertible {
 	/// This method can get the counts of days, periods and locations array's length.
 	///
 	/// :returns: Count of days, periods and locations array.
-	func sessionLength() -> Int {
+	public func sessionLength() -> Int {
 		if self.day_1 == nil {
 			return 0
 		}
@@ -339,5 +339,28 @@ class CourseRawDataObject: CustomStringConvertible {
 		}
 		return 9
 		
+	}
+	
+	public class func generateObjects(json: JSON) -> [CourseRawDataObject] {
+		
+		// initialize cache
+		var objects = [CourseRawDataObject]()
+		
+		// check if is array
+		if json.isArray {
+			// start looping
+			for (_, json) : (String, JSON) in json {
+				if let object = CourseRawDataObject(json: json) {
+					objects.append(object)
+				}
+			}
+		} else {
+			// single object
+			if let object = CourseRawDataObject(json: json) {
+				objects.append(object)
+			}
+		}
+		
+		return objects
 	}
 }

@@ -50,12 +50,9 @@ class ViewController: UIViewController {
 	
 	func b3() {
 		let api = ColorgyAPI()
-		api.me({ (result) in
-			print(result)
-			}) { (error, AFError) in
-				print(error)
-				print(AFError)
-		}
+		api.getSchoolCourseData(100, year: 2015, term: 1, success: { (courses) in
+			print(courses.count)
+			}, process: nil, failure: nil)
 	}
 	
 	func b2() {
