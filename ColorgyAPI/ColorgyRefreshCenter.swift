@@ -10,15 +10,19 @@ import Foundation
 import AFNetworking
 import SwiftyJSON
 
-enum RefreshTokenState {
+public enum RefreshTokenState {
 	case Refreshing
 	case NotRefreshing
 }
 
-enum RefreshTokenError: ErrorType {
+public enum RefreshTokenError: ErrorType {
 	case NoRefreshToken
 	case FailToParseResponse
 	case NetworkError
+}
+
+public enum NetworkError: ErrorType {
+	case NoNetwork
 }
 
 final public class ColorgyRefreshCenter {
@@ -51,17 +55,31 @@ final public class ColorgyRefreshCenter {
 		self.refreshState = RefreshTokenState.NotRefreshing
 	}
 	
-	// 必需要有回覆機制，refresh前要先看網路存不存在
-	class func refreshAccessToken() {
-		let manager = AFNetworkReachabilityManager.sharedManager()
-		if manager.reachable {
-			print("yolo")
-		} else {
-			print("yolo fuck !")
-		}
+	/// *Initialization*
+	/// Call this during app setup
+	public class func initialization() {
+		// start monitoring
+		AFNetworkReachabilityManager.sharedManager().startMonitoring()
 	}
 	
-	class func refreshAccessToken(success: (() -> Void)?, failure: ((error: RefreshTokenError, AFError: AFError?) -> Void)?) {
+	// 必需要有回覆機制，refresh前要先看網路存不存在
+	public class func refreshAccessToken(success: (() -> Void)?, failure: ((error: NetworkError) -> Void)?) {
+		let manager = AFNetworkReachabilityManager.sharedManager()
+		
+		switch manager.networkReachabilityStatus {
+		case .Unknown:
+			// wait and retry
+		case .NotReachable:
+			
+		case .ReachableViaWiFi:
+			
+		case .ReachableViaWWAN:
+			
+		}
+		
+	}
+	
+	public class func refreshAccessToken(success: (() -> Void)?, failure: ((error: RefreshTokenError, AFError: AFError?) -> Void)?) {
 		
 		let manager = AFHTTPSessionManager(baseURL: nil)
 		manager.requestSerializer = AFJSONRequestSerializer()
@@ -81,7 +99,7 @@ final public class ColorgyRefreshCenter {
 		]
 
 		// lock
-		ColorgyRefreshCenter.sharedInstance().lockWhenRefreshingToken()
+		ColorgyRefreshCenter.sharedInstance().lockWhileRefreshingToken()
 		
 		manager.POST("https://colorgy.io/oauth/token?", parameters: parameters, progress: nil, success: { (task: NSURLSessionDataTask, response: AnyObject?) -> Void in
 			guard let response = response else {
@@ -105,7 +123,7 @@ final public class ColorgyRefreshCenter {
 		})
 	}
 	
-	private func lockWhenRefreshingToken() {
+	private func lockWhileRefreshingToken() {
 		self.refreshState = .Refreshing
 	}
 	

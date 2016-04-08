@@ -8,12 +8,12 @@
 
 import Foundation
 
-class AFError: NSObject {
+final public class AFError: NSObject {
 	
 	var statusCode: Int?
 	var responseBody: String?
 	
-	override var description: String { return "AFError:{\n\tstatusCode: \(statusCode)\n\tresponseBody: \(responseBody)\n" }
+	override public var description: String { return "AFError:{\n\tstatusCode: \(statusCode)\n\tresponseBody: \(responseBody)\n" }
 	
 	init(operation: NSURLSessionDataTask?, error: NSError) {
 		self.statusCode = AFNetworkingErrorParser.statusCode(operation)

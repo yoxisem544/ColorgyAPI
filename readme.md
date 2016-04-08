@@ -43,5 +43,7 @@ failure 一定會回傳
 - 但是可以LOCK API的工作
 
 
-
+## 其他
+### AFReachability
+調用時需要注意：在呼叫`AFNetworkReachabilityManager.sharedManager().startMonitoring()`之後，馬上去查看`reachable`會`fail`。所以建議在一開始開啟APP就開始偵測網路狀態。
 
