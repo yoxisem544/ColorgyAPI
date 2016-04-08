@@ -40,6 +40,13 @@ class ColorgyRefreshCenter {
 	}
 	private var refreshState: RefreshTokenState
 	
+	/// Public refresh state getter
+	var currentRefreshState: RefreshTokenState {
+		get {
+			return refreshState
+		}
+	}
+	
 	init() {
 		self.refreshState = RefreshTokenState.NotRefreshing
 	}

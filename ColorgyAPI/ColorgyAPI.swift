@@ -17,15 +17,49 @@ enum APIMeError: ErrorType {
 	case InvalidURLString
 }
 
-class ColorgyAPI : NSObject {
+final public class ColorgyAPI : NSObject {
+	
+	/// initializer
+	override init() {
+		super.init()
+	}
+	
+	/// public access token getter
+	private var accessToken: String? {
+		get {
+			return ColorgyRefreshCenter.sharedInstance().accessToken
+		}
+	}
+	
+	/// This depends on Refresh center
+	/// Will lock if token is refreshing
+	/// - returns: 
+	///		- True: If token is available
+	///		- False: Time out, no network might cause this problem
+	private func allowAPIAccessing() -> Bool {
+		
+		var retryCounter = 5
+		
+		while retryCounter > 0 {
+			// decrease counter
+			retryCounter -= 1
+			// wait for 3 seconds
+			NSThread.sleepForTimeInterval(3.0)
+			// check if available
+			if ColorgyRefreshCenter.sharedInstance()
+		}
+		
+		return false
+	}
 	
 	// MARK: - User API
 	// get me
 	/// You can simply get Me API using this.
 	///
-	/// :returns: result: ColorgyAPIMeResult?, you can store it.
-	/// :returns: error: An error if you got one, then handle it.
-	class func me(success: ((result: ColorgyAPIMeResult) -> Void)?, failure: ((error: APIMeError, AFError: AFError?) -> Void)?) {
+	/// - returns: 
+	///		- result: ColorgyAPIMeResult?, you can store it.
+	///		- error: An error if you got one, then handle it.
+	func me(success: ((result: ColorgyAPIMeResult) -> Void)?, failure: ((error: APIMeError, AFError: AFError?) -> Void)?) {
 		
 		let manager = AFHTTPSessionManager(baseURL: nil)
 		manager.requestSerializer = AFJSONRequestSerializer()
@@ -33,7 +67,7 @@ class ColorgyAPI : NSObject {
 		
 		print("getting me API")
 		
-		guard let accesstoken = ColorgyUserInformation.sharedInstance().userAccessToken else {
+		guard let accesstoken = self.accessToken else {
 			failure?(error: APIMeError.NoAccessToken, AFError: nil)
 			return
 		}
