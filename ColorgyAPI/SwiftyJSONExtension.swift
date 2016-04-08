@@ -9,11 +9,13 @@
 import SwiftyJSON
 
 extension JSON {
-	/// If this json is an array.
+	
+	/// To check if this json is an array.
 	var isArray: Bool {
 		return self.type == .Array
 	}
 	
+	/// To check if this json is an unknown type.
 	var isUnknownType: Bool {
 		if self.type == Type.Unknown {
 			return true

@@ -9,6 +9,8 @@
 import Foundation
 
 extension NSDate {
+	
+	/// To get year string from this date
 	var year: String {
 		let formatter = NSDateFormatter()
 		//        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss ZZZ"
@@ -17,12 +19,14 @@ extension NSDate {
 	}
 	
 	var month: String {
+		/// To get month string from this date
 		let formatter = NSDateFormatter()
 		//        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss ZZZ"
 		formatter.dateFormat = "MM"
 		return formatter.stringFromDate(self)
 	}
 	
+	/// To get day string from this date
 	var day: String {
 		let formatter = NSDateFormatter()
 		//        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss ZZZ"
@@ -30,6 +34,7 @@ extension NSDate {
 		return formatter.stringFromDate(self)
 	}
 	
+	/// To get hour string from this date
 	var hour: String {
 		let formatter = NSDateFormatter()
 		//        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss ZZZ"
@@ -37,6 +42,7 @@ extension NSDate {
 		return formatter.stringFromDate(self)
 	}
 	
+	/// To get minute string from this date
 	var minute: String {
 		let formatter = NSDateFormatter()
 		//        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss ZZZ"
@@ -44,6 +50,7 @@ extension NSDate {
 		return formatter.stringFromDate(self)
 	}
 	
+	/// To get second string from this date
 	var second: String {
 		let formatter = NSDateFormatter()
 		//        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss ZZZ"

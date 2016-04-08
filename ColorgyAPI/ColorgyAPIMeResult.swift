@@ -32,6 +32,7 @@ private struct APIResult {
 /// You can easily use this to handle with result from Me API.
 final public class ColorgyAPIMeResult : CustomStringConvertible {
 	
+	// MARK: - Parameters
 	let id: Int
 	let uuid: String
 	let username: String?
@@ -56,6 +57,7 @@ final public class ColorgyAPIMeResult : CustomStringConvertible {
 		return true
 	}
 	
+	// MARK: - Init
 	init?(json: JSON) {
 
 		// required

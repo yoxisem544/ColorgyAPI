@@ -23,9 +23,11 @@ public enum ColorgyLoginError: ErrorType {
 	case NetworkError
 }
 
+/// Login starts here
 final public class ColorgyLogin {
 	
-	public class func FacebookLogin(success: (token: String) -> Void, failure: (error: ColorgyFacebookLoginError) -> Void) {
+	/// get Facebook Access Token
+	public class func getFacebookAccessToken(success: (token: String) -> Void, failure: (error: ColorgyFacebookLoginError) -> Void) {
 		let manager = FBSDKLoginManager()
 		manager.logInWithReadPermissions(["email"], fromViewController: nil) { (result: FBSDKLoginManagerLoginResult!, error: NSError!) -> Void in
 			if error != nil {
@@ -45,6 +47,7 @@ final public class ColorgyLogin {
 		}
 	}
 	
+	/// Login in to Colorgy with fb token
 	public class func loginToColorgyWithFacebookToken(token: String, success: ((result: ColorgyLoginResult) -> Void)?, failure: ((error: ColorgyLoginError, AFError: AFError?) -> Void)?) {
 		
 		let manager = AFHTTPSessionManager(baseURL: nil)

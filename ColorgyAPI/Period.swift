@@ -8,16 +8,22 @@
 
 import Foundation
 
+/// Period will give you day, period, location of a specific Course
 final public class Period: NSObject {
 	
+	// MARK: - Parameters
+	/// Weekday of this Period
 	public let day: Int
+	/// period of this Period
 	public let period: Int
+	/// location of this Period
 	public let location: String?
 	
 	public override var description: String {
 		return "Period: {\n\tday -> \(day)\n\tperiod -> \(period)\n\tlocation -> \(location)\n}"
 	}
 	
+	// MARK: Init
 	public init(day: Int, period: Int, location: String?) {
 		self.day = day
 		self.period = period
@@ -36,6 +42,7 @@ final public class Period: NSObject {
 		self.init(day: day!, period: period!, location: location)
 	}
 	
+	// MARK: - Generators
 	public class func generatePeriods(days: [Int?], periods: [Int?], locations: [String?]) -> [Period] {
 		
 		// initialize cache

@@ -10,25 +10,45 @@ import Foundation
 import AFNetworking
 import SwiftyJSON
 
+/// API error while calling me api
 public enum APIMeError: ErrorType {
+	/// Cannot parse the result from server
 	case FailToParseResult
+	/// Network is currently unavailable
 	case NetworkUnavailable
+	/// No access token
 	case NoAccessToken
+	/// URL is invalid
 	case InvalidURLString
+	/// Fail to get api from server, parse AFError to get the detail description
 	case APIConnectionFailure
+	/// API currently unavailable, refresh token might be refreshing...
 	case APIUnavailable
 }
 
+/// API error while calling api
 public enum APIError: ErrorType {
+	/// Cannot parse the result from server
 	case FailToParseResult
+	/// Network is currently unavailable
 	case NetworkUnavailable
+	/// No access token
 	case NoAccessToken
+	/// URL is invalid
 	case InvalidURLString
+	/// Fail to get api from server, parse AFError to get the detail description
 	case APIConnectionFailure
+	/// API currently unavailable, refresh token might be refreshing...
 	case APIUnavailable
+	/// User has no organization code
 	case NoOrganization
 }
 
+/// **Colorgy API**
+/// 
+/// All request to server starts here.
+/// 
+/// You must initialize everytime you want to use it. You can cancel all operation separately, since you have separate manager.
 final public class ColorgyAPI : NSObject {
 	
 	// MARK: - Parameters

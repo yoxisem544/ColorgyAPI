@@ -31,6 +31,7 @@ private struct APIResult {
 
 final public class ColorgyAPIUserResult : CustomStringConvertible {
 	
+	// MARK: - Parameters
 	let id: Int
 	let uuid: String
 	let username: String?
@@ -45,6 +46,7 @@ final public class ColorgyAPIUserResult : CustomStringConvertible {
 	
 	public var description: String { return "ColorgyAPIUserResult: {\n\tid => \(id)\n\tuuid => \(uuid)\n\tusername => \(username)\n\tname => \(name)\n\tavatar_url => \(avatar_url)\n\tcover_photo_url => \(cover_photo_url)\n\t_type => \(_type)\n\torganization => \(organization)\n\tdepartment => \(department)\n\tpossible_organization_code => \(possible_organization_code)\n\tpossible_department_code => \(possible_department_code)\n}" }
 	
+	// MARK: - Init
 	init?(json: JSON) {
 		
 		// required

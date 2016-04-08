@@ -8,6 +8,7 @@
 
 import Foundation
 
+// MARK: - Keys
 private struct LoginResultKeys {
 	static let created_at = "LoginResultKeys created_at"
 	static let scope = "LoginResultKeys scope"
@@ -34,8 +35,10 @@ private struct APIMeResultKeys {
 	static let userFBEmail = "APIMeResultKeys userFBEmail"
 }
 
+// MARK: - Class
 final public class ColorgyUserInformation {
 	
+	/// Singleton of ColorgyUserInformation
 	public class func sharedInstance() -> ColorgyUserInformation {
 		
 		struct Static {
@@ -45,6 +48,7 @@ final public class ColorgyUserInformation {
 		return Static.instance
 	}
 	
+	// MARK: - Save & Delete Region
 	// MARK: save/delete Login Result
 	public class func saveLoginResult(result: ColorgyLoginResult) {
 		let ud = NSUserDefaults.standardUserDefaults()

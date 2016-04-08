@@ -10,18 +10,33 @@ import Foundation
 import AFNetworking
 import SwiftyJSON
 
+/// Specify the state of refresh token
 public enum RefreshTokenState {
+	/// Token is currently refershing
 	case Refreshing
+	/// Token is currently not refershing
 	case NotRefreshing
 }
 
+/// Specify the error while refreshing access & refresh token
 public enum RefreshingError: ErrorType {
+	/// No Refresh token currently
 	case NoRefreshToken
+	/// Fail to parse result from server, token will expired
 	case FailToParseResponse
+	/// Network curently Unavailable
 	case NetworkUnavailable
+	/// There is a request refreshing access token
 	case TokenStillRefreshing
 }
 
+/// **ColorgyRefreshCenter**
+/// 
+/// This is a independent refresh center. This center works independently. Will not be affected by other api calls.
+/// **Usage:**
+/// 1. Start a background worker while app launch
+/// 2. start a background worker while app enter foreground
+/// 3. Stop background worker while app enter background
 final public class ColorgyRefreshCenter {
 	
 	// MARK: - Parameters
